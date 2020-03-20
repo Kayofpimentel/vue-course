@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio 1</title>
+    <link rel="stylesheet" href="./dom.css">
+</head>
+<body>
+    <div id="desafio1">
+        <p>Nome</p>
+        <input type="text" v-on:input="alterarNome">
+        <p>Idade</p>
+        <input type="text" v-on:input="alterarIdade">
+        <p>Multiplicador</p>
+        <p class="multi">{{multiplicador}}</p>
+        <hr>
+        <p class="nome">{{nome}}</p>
+        <p class="idade">{{idade}}</p>
+        <p class="multi">{{multiplicarIdade()}}</p>
+        <p v-once class="rand">{{numRandom()}}</p>
+        <hr>
+        <div>
+            <img id="img-teste" v-bind:src="linkImg" alt="">
+        </div>
+        <hr>
+        <input type="text" v-bind:placeholder="nome">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./code-desafio-1.js"></script>
+</body>
+</html>

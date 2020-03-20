@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso Vue - 3 - Desafio</title>
+  <link rel="stylesheet" href="../estilo/dom.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{titulo}}</h1>
+    <hr>  
+    <div id="code-boxes">
+      <section class="half-page">
+        <h2>{{subTitulo1}}</h2>
+        <div>
+          <button @click="logado = !logado">{{ logado ? 'Sair' : 'Entrar'}}</button>
+          <template>
+            <p v-if="!logado">O usuário não está logado!</p>
+            <p v-else>O usuário está logado!</p>
+          </template>
+          <template>
+            <p v-show="!logado">Navegando como anônimo</p>
+            <p v-show="logado">Perfil: {{ nome }}</p>
+          </template>
+        </div>
+      </section>
+      <section class="half-page">
+        <h2>{{subTitulo2}}</h2>
+        <div>
+          <ul>
+            <li v-for="(cor, i) in cores" :class="'estilo-'+cor" style="list-style: none;">{{i}}) {{cor}}</li>
+          </ul>
+        </div>
+      </section>
+      <section class="half-page">
+        <h2>{{subTitulo3}}</h2>
+        <div>
+          <ul v-for="(livro, i) in livros">
+            <span>{{i}})</span>
+            <li v-for="(value, key) in livro" style="list-style: none;display: inline;">__ {{key}} : {{value}} __</li>
+          </ul>
+        </div>
+      </section>
+      <section class="half-page">
+        <h2>{{subTitulo4}}</h2>
+        <div>
+          <div v-for="pessoa in pessoas">
+            <p v-for="value in pessoa">
+              <span v-if="!Array.isArray(value)">{{value}}</span>
+              <span v-else v-for="nota in value">[{{nota}}]  </span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer v-show="logado">
+      <hr>
+      <p>Desenvolvido para você!</p>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./code-desafio-1.js"></script>
+</body>
+
+</html>

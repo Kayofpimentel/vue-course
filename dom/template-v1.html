@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Vue - 2 - Dom</title>
+    <link rel="stylesheet" href="../estilo/dom.css">
+</head>
+
+<body>
+    <div id="app" v-on:mousemove="attCoord">
+        <h1>{{titulo}}</h1>
+        <hr>
+        <div id="code-boxes" v-bind:class="{'estilo-inverte': estiloInverte}">
+            <section v-on:keyup="somarContador(2)" class="half-page" tabindex="1">
+                <h2 v-once>{{subTitulo1}}</h2>
+                <div>
+                    <p>{{alterarTexto()}}</p>
+                    <a v-bind:href="link">DH</a>
+                    <hr>
+                    <button v-on:click='somarContador(1)'>Somar</button>
+                    <p>{{contador1}}</p>
+                    <p>{{contador1 > 10 ? 'É maior que 10!' : 'Não é maior que 10!'}}</p>
+                    <p>Posição {{coordX}} | {{coordY}}</p>
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo2}}</h2>
+                <div>
+                    <p><a v-on:click.prevent href="https:google.com">Clicar</a></p>
+                    <button v-on:click="alertar()">ALETAR VERMELHO</button>
+                    <p>Evento soltar: {{testeInput}}</p>
+                    <input v-on:keyup="pegarTecla" type="text">
+                    <p>Evento pressionar (enter): {{testeInput}}</p>
+                    <input v-on:keydown.enter="pegarTecla" type="text">
+                    <p>Two-way binding: {{testeInput}}</p>
+                    <input v-model="testeInput" type="text">
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo3}}</h2>
+                <div>
+                    <button v-on:click="aumentar">Aumentar</button>
+                    <button v-on:click="diminuir">Diminuir</button>
+                    <button v-on:click="contador1 = 0">Zerar</button>
+                    <p>Contador: {{contador1}}</p>
+                    <p>Resultado: {{resultado1}}</p>
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo4}}</h2>
+                <div>
+                    <button v-on:click="contador2++">Aumentar</button>
+                    <button v-on:click="contador2--">Diminuir</button>
+                    <button v-on:click="contador2 = 0">Zerar</button>
+                    <p>Contador: {{contador2}}</p>
+                    <p>Resultado: {{resultado2}}</p>
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo5}}</h2>
+                <div class="demo-estilos">
+                    <div >
+                        <button v-on:click="destaqueAzul = !destaqueAzul">Destacar</button>
+                        <p class="demo" v-bind:class="[destacar, {'estilo-grande': estiloGrande}]"
+                         v-bind:style="{'background-color': bdCor}">Azul</p>
+                    </div>
+                    <div>
+                        <p class="demo" v-bind:class="{'estilo-vermelho': estiloVermelho,'estilo-grande': estiloGrande}"
+                            v-bind:style="{'background-color': bdCor}" v-on:click="estiloVermelho = !estiloVermelho">
+                            Vermelho</p>
+                    </div>
+
+                    <div>
+                        <p class="demo" v-bind:class="[ioClasse, {'estilo-verde': estiloVerde, 'estilo-grande': estiloGrande}]"
+                            v-bind:style="{'background-color': bdCor}" v-on:click="estiloVerde = !estiloVerde">Verde</p>
+                    </div>
+                    <div> 
+                        <button v-on:click="estiloGrande = !estiloGrande">Tamanho</button>
+                        <button v-on:click="estiloInverte = !estiloInverte">Inverter</button>
+                    </div>
+                    <div>
+                        <label for="ex-bd-cor">Mudar Fundo</label>
+                        <input id="ex-bd-cor" type="text" v-model="bdCor">
+                    </div>
+                    <div>
+                        <label for="ex-ch-css">Mudar Classe</label>
+                        <input id="ex-ch-css" type="text" v-model="ioClasse">
+                    </div>
+                    <div>
+                        <label for="ex-cond-cor">Mudar Fundo?</label>
+                        <input id="ex-cond-cor" type="text" v-model="ioBdCor">
+                    </div>
+                    <div>
+                        <label for="progresso">Progresso</label>
+                        <p id="progresso" v-bind:style="faltanteEstilo">
+                            <em class="barra" v-bind:style="barraEstilo" >Completando</em>
+                        </p>
+                        <button v-on:click="comecarProgresso" v-bind:style="{'display': progredindo}">iniciar</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./code-v1.js"></script>
+</body>
+
+</html>

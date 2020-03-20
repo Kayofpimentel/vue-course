@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Vue - 3 - condErend</title>
+    <link rel="stylesheet" href="../estilo/dom.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{titulo}}</h1>
+        <hr>
+        <div id="code-boxes">
+            <section class="half-page">
+                <h2>{{subTitulo1}}</h2>
+                <div>
+                    <template v-if="logado">
+                        <p >O usuário está logado!</p>
+                        <p>Perfil: {{ nome }}</p>
+                    </template>
+                    <p v-else-if="anonimo">Navegando como anônimo</p>
+                    <p v-else>Nenhum usuário está logado!</p>
+                    <button @click="logado = !logado">{{ logado ? 'Sair' : 'Entrar'}}</button>
+                    <input type="checkbox" v-model="anonimo">
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo2}}</h2>
+                <div>
+                    <ul>
+                        <li v-for="(cor, i) in cores" :class='"estilo-"+cor'>{{ cor }} : {{i + 1}}</li>
+                    </ul>
+                </div>
+                <template v-for="(cor, i) in cores">
+                    <h3 :class='"estilo-"+cor'>{{ cor }}</h3>
+                    <p> {{ i + 1}} </p>
+                </template>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo3}}</h2>
+                <div>
+                    <ul >
+                        <li v-for="(pessoa, i) in pessoas">
+                            {{i + 1}}
+                            <p v-for="(valor, chave) in pessoa"
+                             style="display: inline-block;margin-right: .5vw;">
+                             | {{ chave }} --- {{ valor }} |
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>{{subTitulo4}}</h2>
+                <div>
+                    <p v-for="n in 10"
+                            style="display: inline-block;margin-right: .5vw;">
+                            {{n}}
+                    </p>
+                </div>
+            </section>
+        </div>
+        
+        <footer v-show="logado">
+            <hr>
+            <p>Desenvolvido para você!</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./code-v1.js"></script>
+</body>
+
+</html>
