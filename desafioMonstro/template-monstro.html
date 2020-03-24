@@ -5,23 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desafio Monstro</title>
-    <link rel="stylesheet" href="../estilo/dom.css">
+    <!-- #TODO Unir e enviar somente um arquivo CSS -->
     <link rel="stylesheet" href="./estilo-monstro.css">
 </head>
 
 <body>
     <div id="jogo-monstro">
+        <h1>Desafio do Monstro</h1>
         <div id="personagens">
-            <section id="grupo"></section>
-            <section id="inimigos"></section>
+            <section id="aliados" >
+                <div v-for="aliado in aliados" class="grupo caixa">
+                    <br>
+                    <p>{{aliado.classe}}</p>
+                    <hr>
+                    <p class="barra"></p>
+                    <p>{{aliado.vida}}</p>
+                    <br>
+                </div>
+            </section>
+            <section id="inimigos" >
+                <div v-for="inimigo in inimigos" class="grupo caixa">
+                    <br>
+                    <p>{{inimigo.classe}}</p>
+                    <hr>
+                    <p class="barra"></p>
+                    <p>{{inimigo.vida}}</p>
+                    <br>
+                </div>
+            </section>
         </div>
-        <div id="habilidades">
-            <span></span>
+        <div id="start-menu" class="caixa">
+            <br>
+            <span>Opção</span>
+            <br>
         </div>
-        <div id="log">
-            <p></p>
+        <div id="habilidades" class="caixa">
+            <section class="habilidades">
+                <br>
+                <span>Habilidade1</span>
+                <br>
+            </section>
+        </div>
+        <div id="log-jogo" class="caixa">
+            <br>
+            <p>Log1</p>
+            <br>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./code-monstro.js"></script>
 </body>
 
 </html>
