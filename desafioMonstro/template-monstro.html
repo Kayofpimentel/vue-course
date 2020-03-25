@@ -7,46 +7,52 @@
     <title>Desafio Monstro</title>
     <!-- #TODO Unir e enviar somente um arquivo CSS -->
     <link rel="stylesheet" href="./estilo-monstro.css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div id="jogo-monstro">
         <h1>Desafio do Monstro</h1>
-        <div id="personagens">
+        <div id="start-menu"  v-if="!iniciado">
+            <br>
+            <div class="caixa">
+                <h2>Bem vindo!</h2>
+                <button @click="iniciar">Iniciar Desafio</button>
+            </div>
+            <br>
+        </div>
+        <div id="personagens" v-if="iniciado">
             <section id="aliados" >
                 <div v-for="aliado in aliados" class="grupo caixa">
-                    <br>
-                    <p>{{aliado.classe}}</p>
+                    <h2>{{aliado.classe}}</h2>
                     <hr>
                     <p class="barra"></p>
                     <p>{{aliado.vida}}</p>
-                    <br>
                 </div>
             </section>
             <section id="inimigos" >
                 <div v-for="inimigo in inimigos" class="grupo caixa">
-                    <br>
-                    <p>{{inimigo.classe}}</p>
+                    <h2>{{inimigo.classe}}</h2>
                     <hr>
                     <p class="barra"></p>
                     <p>{{inimigo.vida}}</p>
-                    <br>
                 </div>
             </section>
         </div>
-        <div id="start-menu" class="caixa">
-            <br>
-            <span>Opção</span>
-            <br>
-        </div>
-        <div id="habilidades" class="caixa">
-            <section class="habilidades">
-                <br>
-                <span>Habilidade1</span>
-                <br>
+        <div id="acoes" class="caixa" v-if="iniciado">
+            <section class="acaoPersonagem" v-for="(aliado, classe) in aliados">
+                <h2>{{aliado.classe}}</h2>
+                <div class="habilidades">
+                    <button v-for="habilidade in aliado.habilidades" @click="adicionarAcao(habilidade,classe)"
+                      v-if="habilidade.intervalo >= 0" :class="acoes[classe] === habilidade ? '' : habilidade.tipo" >
+                        {{habilidade.nome}}
+                    </button>
+                </div>
+                <hr>
             </section>
+            <button id="iniciarTurno" :class="preparar" @click="lutar">{{preparado}}</button>
         </div>
-        <div id="log-jogo" class="caixa">
+        <div id="log-jogo" class="caixa" v-if="iniciado">
             <br>
             <p>Log1</p>
             <br>

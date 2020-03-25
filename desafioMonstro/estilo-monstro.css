@@ -2,6 +2,11 @@ body *{
     margin: 0vw;
     padding: 1vh 0 1vh 0vh;
     border: 0;
+    font-family: 'Indie Flower', cursive;
+}
+
+body *:focus{
+    outline: none;
 }
 
 body{
@@ -22,25 +27,31 @@ hr{
 h1{
     text-align: center;
     width: 100vw;
+    max-height: 5vh;
+    font-weight: 600;
 }
 
 h2{
     text-align: center;
     margin:0;
-    padding: 2vh 0 2vh 0;
+    padding: 1vh 0 1vh 0;
 }
 
 p{
-    font-family: Arial;
-    font-size: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
 }
 
 button{
-    border: .1rem solid black;
-    padding: .3vh .2vw .3vh .2vw;
+    border: .1rem solid #351510;
+    box-shadow: inset 0rem -.05rem .4rem .01rem #351510  ;
+    border-radius: .4rem .1rem .4rem .1rem;
+    background-color: #308A30;
+    color: #351510;
+    padding: .6vh .4vw .6vh .4vw;
     margin: 1vh 0;
-    font-size: 1rem;
-    font-weight: 100;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 input[type=text]{
@@ -81,33 +92,68 @@ ul{
     flex-wrap: wrap;
     justify-content: space-around;
     width: 90vw;
-    min-height: 20vh;
+    min-height: 10vh;
     margin: 1vh 0vw 0 2vw;
 }
 
 #start-menu{
     width: 90vw;
+    min-height: 80vh;
+    margin: 1vh 2vw;
+    padding: 0vh 1vw 0vh 1vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#start-menu .caixa{
+    min-width: 20vw;
+    max-height: 20vh;
+}
+
+#start-menu .caixa button{
+    margin: 0 0 1vh 0;
+}
+
+#acoes{
+    width: 80vw;
     min-height: 15vh;
     margin: 1vh 2vw;
     padding: 0vh 1vw 0vh 1vw;
 }
 
-#habilidades{
-    width: 90vw;
-    min-height: 15vh;
-    margin: 1vh 2vw;
-    padding: 0vh 1vw 0vh 1vw;
+.acaoPersonagem{
+    padding: 0;
+}
+
+.acaoPersonagem .habilidades {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.acaoPersonagem .habilidades button{
+    min-width: 12vw;
+    min-height: 6vh;
+}
+
+#iniciarTurno{
+    min-width: 12vw;
+    min-height: 6vh;
+    margin: 0 0 3vh 0;
+    font-size: 1.5rem;
 }
 
 #log-jogo{
-    width: 90vw;
+    width: 80vw;
     min-height: 10vh;
     margin: 1vh 2vw;
     padding: 0vh 1vw 0vh 1vw;
 }
 
 .grupo{
-    width: 40vw;
+    width: 35vw;
     margin: 2vh 2vw;
     padding: 0;
     text-align: center;
@@ -130,7 +176,25 @@ ul{
     min-height: .9vh;
 }
 
-
 .vazia{
     background-color: #A52211;
-}   
+}
+
+.ataque{
+    color: #BBBBBB;
+    background-color: #FF000080;
+}
+
+.assistencia{
+    color: #BBBBBB;
+    background-color: #0000FF85;
+}
+
+.defesa{
+    color: #BBBBBB;
+    background-color: #DDDD0085;
+}
+
+.preparando{
+    background-color: #00000000;
+}
