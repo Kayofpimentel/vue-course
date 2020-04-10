@@ -34,7 +34,7 @@ h1{
 h2{
     text-align: center;
     margin:0;
-    padding: 1vh 0 1vh 0;
+    padding: 1vh 0 0vh 0;
 }
 
 p{
@@ -93,7 +93,7 @@ ul{
     justify-content: space-around;
     width: 90vw;
     min-height: 10vh;
-    margin: 1vh 0vw 0 2vw;
+    margin: 0vh 0vw 0 2vw;
 }
 
 #start-menu{
@@ -109,6 +109,10 @@ ul{
 #start-menu .caixa{
     min-width: 20vw;
     max-height: 20vh;
+}
+
+#start-menu .caixa h2{
+    margin: 0 0 2vh 0;
 }
 
 #start-menu .caixa button{
@@ -152,9 +156,31 @@ ul{
     padding: 0vh 1vw 0vh 1vw;
 }
 
+#log-jogo div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80vw;
+}
+
+#log-jogo div *{
+    margin: 1vh 0 1vh 0;
+    box-shadow: inset 0rem -.05rem .4rem .01rem #221510;
+    border-radius: .4rem .1rem .4rem .1rem;
+}   
+
+#log-jogo div h2{
+    width: 70vw;
+    background-color: #502211;
+}
+
+#log-jogo div p{
+    width: 55vw;
+}
+
 .grupo{
     width: 35vw;
-    margin: 2vh 2vw;
+    margin: 2vh 2vw 0vh 2vw;
     padding: 0;
     text-align: center;
 }
@@ -172,7 +198,6 @@ ul{
 
 .barra{
     background-color: #350585;
-    margin: 1vh 7.5vw 0vh 7.5vw;
     min-height: .9vh;
 }
 

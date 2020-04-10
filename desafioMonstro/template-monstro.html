@@ -13,7 +13,7 @@
 <body>
     <div id="jogo-monstro">
         <h1>Desafio do Monstro</h1>
-        <div id="start-menu"  v-if="!iniciado">
+        <div id="start-menu" v-if="!iniciado">
             <br>
             <div class="caixa">
                 <h2>Bem vindo!</h2>
@@ -22,39 +22,44 @@
             <br>
         </div>
         <div id="personagens" v-if="iniciado">
-            <section id="aliados" >
-                <div v-for="aliado in aliados" class="grupo caixa">
+            <section id="aliados">
+                <div v-for="(aliado, classe) in aventureiros" class="grupo caixa">
                     <h2>{{aliado.classe}}</h2>
                     <hr>
-                    <p class="barra"></p>
+                    <p class="barra" :style="{'margin': atualizarVidaAventureiros(classe)}"></p>
                     <p>{{aliado.vida}}</p>
                 </div>
             </section>
-            <section id="inimigos" >
-                <div v-for="inimigo in inimigos" class="grupo caixa">
+            <section id="inimigos">
+                <div v-for="(inimigo, classe) in monstros" class="grupo caixa">
                     <h2>{{inimigo.classe}}</h2>
                     <hr>
-                    <p class="barra"></p>
+                    <p class="barra" :style="{'margin': atualizarVidaMonstros(classe)}"></p>
                     <p>{{inimigo.vida}}</p>
                 </div>
             </section>
         </div>
         <div id="acoes" class="caixa" v-if="iniciado">
-            <section class="acaoPersonagem" v-for="(aliado, classe) in aliados">
+            <section class="acaoPersonagem" v-for="(aliado, classe) in aventureiros">
                 <h2>{{aliado.classe}}</h2>
                 <div class="habilidades">
-                    <button v-for="habilidade in aliado.habilidades" @click="adicionarAcao(habilidade,classe)"
-                      v-if="habilidade.intervalo >= 0" :class="acoes[classe] === habilidade ? '' : habilidade.tipo" >
+                    <button v-for="habilidade in aliado.habilidades" @click="acoesAventureiros(habilidade,classe)"
+                        v-if="checarHabilidade(habilidade)"
+                        :class="aventureiros[classe].acao.nome === habilidade.nome ? '' : habilidade.tipo">
                         {{habilidade.nome}}
                     </button>
                 </div>
                 <hr>
             </section>
-            <button id="iniciarTurno" :class="preparar" @click="lutar">{{preparado}}</button>
+            <button id="iniciarTurno" :class="{'preparando':!preparar} " @click="lutar">{{preparado}}</button>
         </div>
         <div id="log-jogo" class="caixa" v-if="iniciado">
             <br>
-            <p>Log1</p>
+            <div v-for="(turnos, index) in log">
+                <h2>Turno {{index}}</h2>
+                <p v-for="acontecimento in turnos" :class="acontecimento.tipo">{{acontecimento.texto}}</p>
+            </div>
+
             <br>
         </div>
     </div>
