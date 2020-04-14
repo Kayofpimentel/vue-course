@@ -106,16 +106,28 @@ ul{
     justify-content: space-around;
 }
 
-#start-menu .caixa{
-    min-width: 20vw;
-    max-height: 20vh;
-}
-
 #start-menu .caixa h2{
     margin: 0 0 2vh 0;
 }
 
-#start-menu .caixa button{
+#finish-menu{
+    width: 80vw;
+    max-height: 60vh;
+    min-height: 40vh;
+    margin: 1vh 2vw;
+    padding: 0vh 1vw 0vh 1vw;
+    font-size: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#start-menu .caixa, #finish-menu .caixa{
+    min-width: 20vw;
+    max-height: 20vh;
+}
+
+#start-menu .caixa button, #finish-menu .caixa button{
     margin: 0 0 1vh 0;
 }
 
@@ -222,4 +234,21 @@ ul{
 
 .preparando{
     background-color: #00000000;
+}
+
+.vitoria{
+    color: #AAAA05;
+}
+
+.derrota{
+    color: #222222;
+}
+
+.desistir{
+    min-width: 12vw;
+    min-height: 6vh;
+    margin: 0 0 3vh 0;
+    font-size: 1.5rem;   
+    color:  #222222;
+    background-color: #AAAAAA;
 }

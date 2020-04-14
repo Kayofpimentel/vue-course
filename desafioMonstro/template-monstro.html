@@ -13,7 +13,7 @@
 <body>
     <div id="jogo-monstro">
         <h1>Desafio do Monstro</h1>
-        <div id="start-menu" v-if="!iniciado">
+        <div id="start-menu" v-if="!iniciado && !terminado">
             <br>
             <div class="caixa">
                 <h2>Bem vindo!</h2>
@@ -21,7 +21,7 @@
             </div>
             <br>
         </div>
-        <div id="personagens" v-if="iniciado">
+        <div id="personagens" v-if="iniciado && !terminado">
             <section id="aliados">
                 <div v-for="(aliado, classe) in aventureiros" class="grupo caixa">
                     <h2>{{aliado.classe}}</h2>
@@ -39,7 +39,7 @@
                 </div>
             </section>
         </div>
-        <div id="acoes" class="caixa" v-if="iniciado">
+        <div id="acoes" class="caixa" v-if="iniciado && !terminado">
             <section class="acaoPersonagem" v-for="(aliado, classe) in aventureiros">
                 <h2>{{aliado.classe}}</h2>
                 <div class="habilidades">
@@ -51,7 +51,14 @@
                 </div>
                 <hr>
             </section>
-            <button id="iniciarTurno" :class="{'preparando':!preparar} " @click="lutar">{{preparado}}</button>
+            <button id="iniciarTurno" :class="{'preparando':!preparar} " @click="lutar">{{botaoIniciar}}</button>
+            <button class='desistir' @click="desistir">Desistir!</button>
+        </div>
+        <div id="finish-menu" v-if="terminado">
+            <section>
+                <h2 :class="resultado.localeCompare('Derrota') === 0 ? 'derrota' : 'vitoria'">{{resultado}}!</h2>
+                <button @click="reiniciar">Reiniciar desafio</button>
+            </section>
         </div>
         <div id="log-jogo" class="caixa" v-if="iniciado">
             <br>
@@ -59,7 +66,6 @@
                 <h2>Turno {{index}}</h2>
                 <p v-for="acontecimento in turnos" :class="acontecimento.tipo">{{acontecimento.texto}}</p>
             </div>
-
             <br>
         </div>
     </div>
