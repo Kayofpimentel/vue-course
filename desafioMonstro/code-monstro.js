@@ -9,15 +9,15 @@ const jogo = new Vue({
             mago: {
                 classe: 'Mago', vida: 90, status: 'normal', acao: '',
                 habilidades: {
-                    primeira: { nome: 'Raio', efeito: { dano: [8, 14] }, tipo: 'ataque',intervalo: 0 },
-                    segunda: { nome: 'Congelar', efeito: { paralisar: 1}, tipo: 'assistencia', intervalo: 2 },
+                    primeira: { nome: 'Raio', efeito: { dano: [8, 14] }, tipo: 'ataque' },
+                    segunda: { nome: 'Congelar', efeito: { paralisar: 1 }, tipo: 'assistencia', intervalo: 2 },
                     terceira: { nome: 'Bola de fogo', efeito: { dano: [20, 25] }, tipo: 'ataque', intervalo: -2 }
                 }
             },
             guerreiro: {
                 classe: 'Guerreiro', vida: 140, status: 'normal', acao: '',
                 habilidades: {
-                    primeira: { nome: 'Atacar', efeito: { dano: [6, 18] }, tipo: 'ataque', intervalo: 0 },
+                    primeira: { nome: 'Atacar', efeito: { dano: [6, 18] }, tipo: 'ataque' },
                     segunda: { nome: 'Girar', efeito: { danoArea: 10 }, tipo: 'ataque', intervalo: 1 },
                     terceira: { nome: 'Bandagem', efeito: { cura: [10, 25] }, tipo: 'assistencia', intervalo: 2 }
                 }
@@ -25,16 +25,16 @@ const jogo = new Vue({
             goblin: {
                 classe: 'Goblin', vida: 50, status: 'normal', acao: '',
                 habilidades: {
-                    primeira: { nome: 'Atacar', efeito: { dano: [4, 12] }, tipo: 'ataque', intervalo: 0 },
-                    segunda: { nome: 'Bomba', efeito: { danoArea: 20 }, tipo: 'ataque', intervalo: 0 },
+                    primeira: { nome: 'Atacar', efeito: { dano: [4, 12] }, tipo: 'ataque' },
+                    segunda: { nome: 'Bomba', efeito: { danoArea: 20 }, tipo: 'ataque' },
                 }
             },
             ogre: {
                 classe: 'Ogre', vida: 150, status: 'normal', acao: '',
                 habilidades: {
-                    primeira: { nome: 'Balançar', efeito: { danoArea: 15 }, tipo: 'ataque', intervalo: 0 },
-                    segunda: { nome: 'Esmagar', efeito: { dano: [10, 20] }, tipo: 'ataque', intervalo: 0 },
-                    terceira: { nome: 'Grito', efeito: { paralisar: 1 }, tipo: 'assistencia', intervalo: 0, uso: 1 }
+                    primeira: { nome: 'Balançar', efeito: { danoArea: 15 }, tipo: 'ataque' },
+                    segunda: { nome: 'Esmagar', efeito: { dano: [10, 20] }, tipo: 'ataque' },
+                    terceira: { nome: 'Grito', efeito: { paralisar: 1 }, tipo: 'assistencia', uso: 1, intervalo: 1 }
                 }
             }
         },
@@ -62,35 +62,52 @@ const jogo = new Vue({
     methods: {
         iniciar() {
             const vm = this
-            vm.aventureiros.mago = Object.assign({}, vm.personagens.mago)
-            vm.aventureiros.guerreiro = Object.assign({}, vm.personagens.guerreiro)
-            vm.monstros.goblin = Object.assign({}, vm.personagens.goblin)
-            vm.monstros.ogre = Object.assign({}, vm.personagens.ogre)
+            vm.aventureiros.mago = _.cloneDeep(vm.personagens.mago)
+            vm.aventureiros.guerreiro = _.cloneDeep(vm.personagens.guerreiro)
+            vm.monstros.goblin = _.cloneDeep(vm.personagens.goblin)
+            vm.monstros.ogre = _.cloneDeep(vm.personagens.ogre)
             vm.iniciado = true
         },
         reiniciar() {
             const vm = this
+            vm.monstros = { goblin: null, ogre: null }
+            vm.aventureiros = { mago: null, guerreiro: null }
             vm.iniciar()
             vm.terminado = false
             vm.resultado = ''
+            vm.log = [[{ texto: 'Batalha iniciada', tipo: 'assistencia' }]]
         },
         desistir() {
             const vm = this
             vm.iniciado = false
+            delete vm.monstros, vm.aventureiros
+            vm.monstros = { goblin: null, ogre: null }
+            vm.aventureiros = { mago: null, guerreiro: null }
+            vm.resultado = ''
+            vm.log = [[{ texto: 'Batalha iniciada', tipo: 'assistencia' }]]
         },
         lutar(event) {
             const vm = this
             turno = vm.log.length
             vm.log[turno] = []
+
+            for (aventureiro in vm.aventureiros) {
+                for (habilidade in vm.aventureiros[aventureiro].habilidades) {
+                    if (typeof (vm.aventureiros[aventureiro].habilidades[habilidade].intervalo) !== 'undefined') {
+                        vm.atualizarHabilidade(vm.aventureiros[aventureiro].habilidades[habilidade])
+                    }
+                }
+            }
             if (vm.botaoIniciar.localeCompare('Preparar!') == 0) {
                 event.stopPropagation()
             }
             else {
-                vm.acoesMonstros()
+                
                 for (aventureiro in vm.aventureiros) {
                     vm.resolverAcao(vm.aventureiros[aventureiro], true, turno)
                 }
                 for (monstro in vm.monstros) {
+                    vm.acoesMonstros()
                     vm.resolverAcao(vm.monstros[monstro], false, turno)
                 }
                 if (Object.keys(vm.aventureiros).length === 0) {
@@ -106,19 +123,13 @@ const jogo = new Vue({
 
                         for (aventureiro in vm.aventureiros) {
                             vm.aventureiros[aventureiro].acao = 'nenhum'
-                            for(habilidade in vm.aventureiros[aventureiro].habilidades){
-                                vm.atualizarHabilidade(vm.aventureiros[aventureiro].habilidades[habilidade])
-                            }
                         }
                         for (monstro in vm.monstros) {
                             vm.monstros[monstro].acao = 'nenhum'
                         }
                     }
                 }
-
-
             }
-
         },
         acoesAventureiros(acao, classe) {
             const vm = this
@@ -141,7 +152,6 @@ const jogo = new Vue({
                 if (typeof (perfilOgre.acao.nome) === 'undefined') {
                     if (perfilOgre.vida <= 75 && vm.checarHabilidade(perfilOgre.habilidades.terceira)) {
                         acaoOgre = perfilOgre.habilidades.terceira
-                        acaoOgre.uso -= 1
                     }
                     else {
                         acaoOgre = perfilOgre.vida <= 75
@@ -154,9 +164,10 @@ const jogo = new Vue({
         },
         resolverAcao(personagem, isAventureiro, turno) {
             const vm = this
-            if (personagem.status == 'normal' && vm.checarHabilidade(personagem.acao)) {
+            if (personagem.status == 'normal') {
                 let acao = personagem.acao
-                acao.intervalo = acao.intervalo >= 0 ? acao.intervalo - 1 : acao.intervalo + 1
+                acao.intervalo = acao.intervalo > 0 ? acao.intervalo - 1 : acao.intervalo
+                acao.uso = acao.uso > 0 ? acao.uso - 1 : acao.uso
                 if (acao.tipo == 'ataque') {
                     vm.dano(acao.efeito, isAventureiro, turno)
                 }
@@ -174,57 +185,60 @@ const jogo = new Vue({
             const vm = this
             let danoAtaque
             let alvos = isAventureiro ? vm.monstros : vm.aventureiros
-            if (typeof (dmgData.danoArea) !== 'undefined') {
-                danoAtaque = dmgData.danoArea
-                for (alvo in alvos) {
+            if (Object.keys(alvos).length > 0) {
+                if (typeof (dmgData.danoArea) !== 'undefined') {
+                    danoAtaque = dmgData.danoArea
+                    for (alvo in alvos) {
+                        if (alvos[alvo].vida <= danoAtaque) {
+                            let logAcoes = { texto: alvo + ' morreu com um ataque de ' + danoAtaque + ' de dano!', tipo: 'ataque' }
+                            vm.log[turno].push(logAcoes)
+                            delete alvos[alvo]
+                        }
+                        else {
+                            alvos[alvo].vida -= danoAtaque
+                            let logAcoes = { texto: alvo + ' recebeu um ataque de ' + danoAtaque + ' de dano!', tipo: 'ataque' }
+                            vm.log[turno].push(logAcoes)
+                        }
+
+                    }
+                }
+                else {
+                    let tamanhoGrupo = Object.keys(alvos).length - 1
+                    let chanceAlvo = tamanhoGrupo > 0 ? Math.round(tamanhoGrupo - tamanhoGrupo * Math.random()) : 0
+                    let alvo = Object.keys(alvos)[chanceAlvo]
+                    danoAtaque = Math.round(dmgData.dano[1] - (dmgData.dano[1] - dmgData.dano[0]) * Math.random())
+                    console.log(danoAtaque + ' em ' + alvo)
                     if (alvos[alvo].vida <= danoAtaque) {
-                        let logAcoes = { texto: alvo +' morreu com um ataque de '+danoAtaque+' de dano!', tipo: 'ataque' }
+                        let logAcoes = { texto: alvo + ' morreu com um ataque de ' + danoAtaque + ' de dano!', tipo: 'ataque' }
                         vm.log[turno].push(logAcoes)
                         delete alvos[alvo]
                     }
                     else {
                         alvos[alvo].vida -= danoAtaque
-                        let logAcoes = { texto: alvo +' recebeu um ataque de '+danoAtaque+' de dano!', tipo: 'ataque' }
+                        let logAcoes = { texto: alvo + ' recebeu um ataque de ' + danoAtaque + ' de dano.', tipo: 'ataque' }
                         vm.log[turno].push(logAcoes)
                     }
+                }
 
-                }
-            }
-            else {
-                let tamanhoGrupo = Object.keys(alvos).length - 1
-                let chanceAlvo = tamanhoGrupo > 0 ? Math.round(tamanhoGrupo - tamanhoGrupo * Math.random()) : 0
-                let alvo = Object.keys(alvos)[chanceAlvo]
-                danoAtaque = Math.round(dmgData.dano[1] - (dmgData.dano[1] - dmgData.dano[0]) * Math.random())
-                console.log(danoAtaque + ' em ' + alvo)
-                if (alvos[alvo].vida <= danoAtaque) {
-                    let logAcoes = { texto: alvo +' morreu com um ataque de '+danoAtaque+' de dano!', tipo: 'ataque' }
-                    vm.log[turno].push(logAcoes)
-                    delete alvos[alvo]
-                }
-                else {
-                    alvos[alvo].vida -= danoAtaque
-                    let logAcoes = { texto: alvo +' recebeu um ataque de '+danoAtaque+' de dano.', tipo: 'ataque' }
-                    vm.log[turno].push(logAcoes)
-                }
 
             }
         },
-        efeito(efeito, isAventureiro, turno){
+        efeito(efeito, isAventureiro, turno) {
             const vm = this
-            if(typeof(efeito.paralisar) !== "undefined" ){
+            if (typeof (efeito.paralisar) !== "undefined") {
                 let alvos = isAventureiro ? vm.monstros : vm.aventureiros
-                for(alvo in alvos){
+                for (alvo in alvos) {
                     alvos[alvo].status = "paralisado"
-                    let logAcoes = { texto: alvo +' foi paralisado!', tipo: 'assistencia' }
+                    let logAcoes = { texto: alvo + ' foi paralisado!', tipo: 'assistencia' }
                     vm.log[turno].push(logAcoes)
                 }
             }
-            else{
+            else {
                 let alvos = vm.aventureiros
-                for(alvo in alvos){
+                for (alvo in alvos) {
                     cura = Math.round(efeito.cura[1] - (efeito.cura[1] - efeito.cura[0]) * Math.random())
                     alvos[alvo].vida += cura
-                    let logAcoes = { texto: alvo +' foi curado por '+cura+ '.', tipo: 'assistencia' }
+                    let logAcoes = { texto: alvo + ' foi curado por ' + cura + '.', tipo: 'assistencia' }
                     vm.log[turno].push(logAcoes)
                 }
             }
@@ -259,7 +273,7 @@ const jogo = new Vue({
             barra = ((20 / vm.personagens[classe].vida) * vidaTirada) + 7.5
             return '1vh ' + barra + 'vw 0vh 7.5vw'
         },
-        atualizarHabilidade(habilidade){
+        atualizarHabilidade(habilidade) {
             const vm = this
             let padrao
             for (personagem in vm.personagens) {
@@ -269,12 +283,20 @@ const jogo = new Vue({
                     }
                 }
             }
-            if(habilidade.intervalo < 0){
-                habilidade.intervalo += 1
-                if(habilidade.intervalo != padrao.intervalo && habilidade.intervalo === 0){
-                     habilidade.intervalo = padrao.intervalo
-                }
+            if (habilidade.intervalo === 0) {
+                habilidade.intervalo = padrao.intervalo
             }
+            else{
+                if (habilidade.intervalo > 0 && habilidade.intervalo < padrao.intervalo){
+                    habilidade.intervalo -= 1
+                }
+                if(habilidade.intervalo < 0){
+                    habilidade.intervalo += 1
+                }      
+            } 
         }
     }
 })
+
+
+
