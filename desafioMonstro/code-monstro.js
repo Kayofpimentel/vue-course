@@ -7,7 +7,7 @@ const jogo = new Vue({
         resultado: '',
         personagens: {
             mago: {
-                classe: 'Mago', vida: 90, status: 'normal', acao: '',
+                classe: 'mago', vida: 90, status: 'normal', acao: '',
                 habilidades: {
                     primeira: { nome: 'Raio', efeito: { dano: [8, 14] }, tipo: 'ataque' },
                     segunda: { nome: 'Congelar', efeito: { paralisar: 1 }, tipo: 'assistencia', intervalo: 2 },
@@ -15,7 +15,7 @@ const jogo = new Vue({
                 }
             },
             guerreiro: {
-                classe: 'Guerreiro', vida: 140, status: 'normal', acao: '',
+                classe: 'guerreiro', vida: 140, status: 'normal', acao: '',
                 habilidades: {
                     primeira: { nome: 'Atacar', efeito: { dano: [6, 18] }, tipo: 'ataque' },
                     segunda: { nome: 'Girar', efeito: { danoArea: 10 }, tipo: 'ataque', intervalo: 1 },
@@ -23,14 +23,14 @@ const jogo = new Vue({
                 }
             },
             goblin: {
-                classe: 'Goblin', vida: 50, status: 'normal', acao: '',
+                classe: 'goblin', vida: 50, status: 'normal', acao: '',
                 habilidades: {
                     primeira: { nome: 'Atacar', efeito: { dano: [4, 12] }, tipo: 'ataque' },
                     segunda: { nome: 'Bomba', efeito: { danoArea: 20 }, tipo: 'ataque' },
                 }
             },
             ogre: {
-                classe: 'Ogre', vida: 150, status: 'normal', acao: '',
+                classe: 'ogre', vida: 150, status: 'normal', acao: '',
                 habilidades: {
                     primeira: { nome: 'Balançar', efeito: { danoArea: 15 }, tipo: 'ataque' },
                     segunda: { nome: 'Esmagar', efeito: { dano: [10, 20] }, tipo: 'ataque' },
@@ -87,22 +87,25 @@ const jogo = new Vue({
             vm.log = [[{ texto: 'Batalha iniciada', tipo: 'assistencia' }]]
         },
         lutar(event) {
-            const vm = this
-            turno = vm.log.length
-            vm.log[turno] = []
 
-            for (aventureiro in vm.aventureiros) {
-                for (habilidade in vm.aventureiros[aventureiro].habilidades) {
-                    if (typeof (vm.aventureiros[aventureiro].habilidades[habilidade].intervalo) !== 'undefined') {
-                        vm.atualizarHabilidade(vm.aventureiros[aventureiro].habilidades[habilidade])
-                    }
-                }
-            }
-            if (vm.botaoIniciar.localeCompare('Preparar!') == 0) {
+            const vm = this
+
+            if (vm.botaoIniciar.localeCompare('Preparar!') === 0) {
                 event.stopPropagation()
             }
             else {
-                
+
+                let turno = vm.log.length
+                vm.log[turno] = []
+
+                for (aventureiro in vm.aventureiros) {
+                    for (habilidade in vm.aventureiros[aventureiro].habilidades) {
+                        if (typeof (vm.aventureiros[aventureiro].habilidades[habilidade].intervalo) !== 'undefined') {
+                            vm.atualizarHabilidade(vm.aventureiros[aventureiro].habilidades[habilidade])
+                        }
+                    }
+                }
+
                 for (aventureiro in vm.aventureiros) {
                     vm.resolverAcao(vm.aventureiros[aventureiro], true, turno)
                 }
@@ -110,7 +113,7 @@ const jogo = new Vue({
                     vm.acoesMonstros()
                     vm.resolverAcao(vm.monstros[monstro], false, turno)
                 }
-                if (Object.keys(vm.aventureiros).length === 0) {
+                if (!Object.keys(vm.aventureiros).length) {
                     vm.resultado = 'Derrota'
                     vm.terminado = true
                 }
@@ -225,10 +228,10 @@ const jogo = new Vue({
         },
         efeito(efeito, isAventureiro, turno) {
             const vm = this
-            if (typeof (efeito.paralisar) !== "undefined") {
+            if (typeof (efeito.paralisar) !== 'undefined') {
                 let alvos = isAventureiro ? vm.monstros : vm.aventureiros
                 for (alvo in alvos) {
-                    alvos[alvo].status = "paralisado"
+                    alvos[alvo].status = 'paralisado'
                     let logAcoes = { texto: alvo + ' foi paralisado!', tipo: 'assistencia' }
                     vm.log[turno].push(logAcoes)
                 }
@@ -255,7 +258,7 @@ const jogo = new Vue({
                 }
             }
             if (typeof (habilidade) != 'string') {
-                if (habilidade.uso < 1 || habilidade.intervalo < padrao.intervalo || habilidade.intervalo < 0) {
+                if (habilidade.uso < 1 || habilidade.intervalo < padrao.intervalo || habilidade.intervalo < 0 ){
                     usavel = false
                 }
             }
@@ -286,14 +289,14 @@ const jogo = new Vue({
             if (habilidade.intervalo === 0) {
                 habilidade.intervalo = padrao.intervalo
             }
-            else{
-                if (habilidade.intervalo > 0 && habilidade.intervalo < padrao.intervalo){
+            else {
+                if (habilidade.intervalo > 0 && habilidade.intervalo < padrao.intervalo) {
                     habilidade.intervalo -= 1
                 }
-                if(habilidade.intervalo < 0){
+                if (habilidade.intervalo < 0) {
                     habilidade.intervalo += 1
-                }      
-            } 
+                }
+            }
         }
     }
 })

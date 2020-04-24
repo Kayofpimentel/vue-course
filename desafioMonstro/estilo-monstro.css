@@ -1,3 +1,5 @@
+/* Geral */
+
 body *{
     margin: 0vw;
     padding: 1vh 0 1vh 0vh;
@@ -75,6 +77,8 @@ ul{
     margin: .3vh .8vw .3vh .8vw;
 }
 
+/* Jogo */
+
 #jogo-monstro{
     max-width: 100vw;
     min-height: 97vh;
@@ -87,15 +91,6 @@ ul{
     background-color: #663311;
 }
 
-#personagens{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 90vw;
-    min-height: 10vh;
-    margin: 0vh 0vw 0 2vw;
-}
-
 #start-menu{
     width: 90vw;
     min-height: 80vh;
@@ -105,6 +100,8 @@ ul{
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
+
 
 #start-menu .caixa h2{
     margin: 0 0 2vh 0;
@@ -131,11 +128,82 @@ ul{
     margin: 0 0 1vh 0;
 }
 
+.caixa{
+    box-shadow: inset 0rem -.05rem 1rem .05rem #251005,inset 0rem -.05rem 2rem .01rem #153015  ;
+    border-radius: 1.5rem .5rem 1.5rem .5rem;
+    background-color: #704018;
+}
+
+.preparando{
+    background-color: #00000000;
+}
+
+.vitoria{
+    color: #AAAA05;
+}
+
+.derrota{
+    color: #222222;
+}
+
+
+
+
+/* Grupos */
+
+#personagens{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 90vw;
+    min-height: 10vh;
+    margin: 0vh 0vw 0 2vw;
+}
+
+.grupo{
+    width: 35vw;
+    margin: 2vh 2vw 0vh 2vw;
+    padding: 0;
+    text-align: center;
+}
+
+.grupo p{
+    font-size: 1.5rem;
+    padding: 1vh 0;
+}
+
+.barra{
+    background-color: #350585;
+    min-height: .9vh;
+}
+
+.vazia{
+    background-color: #A52211;
+}
+
+/* Habilidades */
+
 #acoes{
     width: 80vw;
     min-height: 15vh;
     margin: 1vh 2vw;
     padding: 0vh 1vw 0vh 1vw;
+}
+
+#iniciarTurno{
+    min-width: 12vw;
+    min-height: 6vh;
+    margin: 0 0 3vh 0;
+    font-size: 1.5rem;
+}
+
+.desistir{
+    min-width: 12vw;
+    min-height: 6vh;
+    margin: 0 0 3vh 0;
+    font-size: 1.5rem;   
+    color:  #222222;
+    background-color: #AAAAAA;
 }
 
 .acaoPersonagem{
@@ -154,18 +222,31 @@ ul{
     min-height: 6vh;
 }
 
-#iniciarTurno{
-    min-width: 12vw;
-    min-height: 6vh;
-    margin: 0 0 3vh 0;
-    font-size: 1.5rem;
+.ataque{
+    color: #BBBBBB;
+    background-color: #FF000077;
 }
+
+.assistencia{
+    color: #BBBBBB;
+    background-color: #0000FF77;
+}
+
+.defesa{
+    color: #BBBBBB;
+    background-color: #DDDD0077;
+}
+
+/* Log */
 
 #log-jogo{
     width: 80vw;
     min-height: 10vh;
     margin: 1vh 2vw;
     padding: 0vh 1vw 0vh 1vw;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
 }
 
 #log-jogo div{
@@ -190,65 +271,5 @@ ul{
     width: 55vw;
 }
 
-.grupo{
-    width: 35vw;
-    margin: 2vh 2vw 0vh 2vw;
-    padding: 0;
-    text-align: center;
-}
 
-.grupo p{
-    font-size: 1.5rem;
-    padding: 1vh 0;
-}
 
-.caixa{
-    box-shadow: inset 0rem -.05rem 1rem .05rem #251005,inset 0rem -.05rem 2rem .01rem #153015  ;
-    border-radius: 1.5rem .5rem 1.5rem .5rem;
-    background-color: #704018;
-}
-
-.barra{
-    background-color: #350585;
-    min-height: .9vh;
-}
-
-.vazia{
-    background-color: #A52211;
-}
-
-.ataque{
-    color: #BBBBBB;
-    background-color: #FF000080;
-}
-
-.assistencia{
-    color: #BBBBBB;
-    background-color: #0000FF85;
-}
-
-.defesa{
-    color: #BBBBBB;
-    background-color: #DDDD0085;
-}
-
-.preparando{
-    background-color: #00000000;
-}
-
-.vitoria{
-    color: #AAAA05;
-}
-
-.derrota{
-    color: #222222;
-}
-
-.desistir{
-    min-width: 12vw;
-    min-height: 6vh;
-    margin: 0 0 3vh 0;
-    font-size: 1.5rem;   
-    color:  #222222;
-    background-color: #AAAAAA;
-}

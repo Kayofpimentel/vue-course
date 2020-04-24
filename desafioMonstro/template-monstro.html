@@ -24,29 +24,31 @@
         </div>
         <div id="personagens" v-if="iniciado && !terminado">
             <section id="aliados">
-                <div v-for="(aliado, classe) in aventureiros" class="grupo caixa">
+                <div v-for="aliado in aventureiros" class="grupo caixa">
                     <h2>{{aliado.classe}}</h2>
                     <hr>
-                    <p class="barra" :style="{'margin': atualizarVidaAventureiros(classe)}"></p>
+                    <p class="barra" :class="{'vazia': aliado.vida / personagens[aliado.classe].vida <= .4 }"
+                        :style="{'margin': atualizarVidaAventureiros(aliado.classe)}"></p>
                     <p>{{aliado.vida}}</p>
                 </div>
             </section>
             <section id="inimigos">
-                <div v-for="(inimigo, classe) in monstros" class="grupo caixa">
+                <div v-for="inimigo in monstros" class="grupo caixa">
                     <h2>{{inimigo.classe}}</h2>
                     <hr>
-                    <p class="barra" :style="{'margin': atualizarVidaMonstros(classe)}"></p>
+                    <p class="barra" :class="{'vazia': inimigo.vida / personagens[inimigo.classe].vida <= .4 }"
+                        :style="{'margin': atualizarVidaMonstros(inimigo.classe)}"></p>
                     <p>{{inimigo.vida}}</p>
                 </div>
             </section>
         </div>
         <div id="acoes" class="caixa" v-if="iniciado && !terminado">
-            <section class="acaoPersonagem" v-for="(aliado, classe) in aventureiros">
+            <section class="acaoPersonagem" v-for="aliado in aventureiros">
                 <h2>{{aliado.classe}}</h2>
                 <div class="habilidades">
-                    <button v-for="habilidade in aliado.habilidades" @click="acoesAventureiros(habilidade,classe)"
-                        v-if="checarHabilidade(habilidade)"
-                        :class="aventureiros[classe].acao.nome === habilidade.nome ? '' : habilidade.tipo">
+                    <button v-for="habilidade in aliado.habilidades"
+                        @click="acoesAventureiros(habilidade,aliado.classe)" v-if="checarHabilidade(habilidade)"
+                        :class="aventureiros[aliado.classe].acao.nome === habilidade.nome ? '' : habilidade.tipo">
                         {{habilidade.nome}}
                     </button>
                 </div>
