@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Vue - 5 - Instância</title>
+    <link rel="stylesheet" href="../estilo/dom.css">
+    <script src="https://unpkg.com/vue" ></script>
+    
+</head>
+<body>
+    <div>
+        <h1>Módulo 5</h1>
+        <hr>
+        <div id="code-boxes">
+            <section class="half-page">
+                <h2>Múltiplas</h2>
+                <div id="app1">
+                    <h3>{{titulo1}}</h3>
+                    <button @click="alterar">Alterar</button>
+                </div>
+                <div id="app2">
+                    <h3>{{titulo2}}</h3>
+                    <button @click="alterar">Alterar</button>
+                </div>
+            </section>
+            <section class="half-page">
+                <h2>Meu Vue</h2>
+                <div id="meuApp">
+                    <p>{{nome}}</p>
+                    <p>{{sobrenome}}</p>
+                    <p>{{ 1+1 }}</p>
+                    <p>{{10 * 10}}</p>
+                </div>
+            </section>
+            <section class="half-page" id="app3">
+                <h2>{{titulo}}</h2>
+                <h3>{{teste}}</h3>
+                <button @click="alterar">Alterar</button>
+                <p ref='referenciando'>{{referencia}}</p>
+                <button @click="alterarRef">Alterar ref</button>
+                <p>{{referencia}}</p>
+            </section>
+            <div id="app4"></div>
+            <section class="half-page" id="app5">
+                <comp5></comp5>
+                <comp5></comp5>
+            </section>
+            <section class="half-page" id="app6">
+                <h2>{{titulo}}</h2>
+                <button @click="titulo += '#'">Alterar titulo</button>
+                <button @click="$destroy()">Destruir Vue</button>
+            </section>
+        </div>
+    </div>
+    
+
+    
+    <script src="./code-v1.js"></script>
+</body>
+</html>

@@ -68,6 +68,13 @@ ul{
     
 }
 
+.lessons{
+    width: 96vw;
+    height: 97vh;
+    padding: 3vh 0vw 0vw 1.5vw;
+    margin: 0;
+}
+
 #code-boxes{
     display: flex;
     flex-wrap: wrap;
