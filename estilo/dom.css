@@ -1,14 +1,14 @@
 body *{
     margin: 0vw;
-    padding: 1vh 0 1vh 0vh;
+    padding: 1vh 1vw;
     border: 0;
 }
 
 body{
     font-size: 20px;
-    max-width: 100vw;
-    height: 100vh;
     margin: 0;
+    text-align: center;
+    max-width: 100vw;
 }
 
 hr{
@@ -18,6 +18,8 @@ hr{
 
 h1{
     text-align: center;
+    padding: 1vh 0;
+    margin: 0;
 }
 
 h2{
@@ -34,7 +36,7 @@ p{
 button{
     border: .1rem solid black;
     padding: .3vh .2vw .3vh .2vw;
-    margin: 1vh 0;
+    margin: 1vh .5vw;
     font-size: 1rem;
     font-weight: 100;
 }
@@ -61,11 +63,10 @@ ul{
 }
 
 #app{
-    width: 96vw;
-    height: 97vh;
-    padding: 3vh 0vw 0vw 1.5vw;
-    margin: 0;
     
+    padding: 0;
+    margin: 0;
+    display: inline-block;
 }
 
 .lessons{
