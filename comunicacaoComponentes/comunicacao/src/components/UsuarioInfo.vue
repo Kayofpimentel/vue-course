@@ -1,13 +1,13 @@
 <template>
     <div class="componente">
         <h2>As Informações de Usuário</h2>
-        <p>Vários detalhes...</p>
+        <span>Nome do usuário: <strong>{{nome}}</strong> </span>
     </div>
 </template>
 
 <script>
 export default {
-    
+    props: ['nome']
 }
 </script>
 
