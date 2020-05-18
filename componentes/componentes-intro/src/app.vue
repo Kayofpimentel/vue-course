@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <h1>Contadores</h1>
+    <h1>Módulo 7</h1>
     <hr>
     <div id="code-boxes">
     <section class="half-page">
-      <h2>Fundamentos</h2>
+      <h2>Componentes</h2>
       <app-contadores></app-contadores>   
     </section>
     <section class="half-page">
-      <h2>Fundamentos</h2>
+      <h2>Componentes</h2>
       <app-contadores></app-contadores>   
     </section>
     </div>
@@ -20,6 +20,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
   @import '../../../estilo/dom.css'
 </style>
+  
