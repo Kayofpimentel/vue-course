@@ -3,9 +3,10 @@
         <h1>Componente Usuário</h1>
         <p>Esse é um componente muito legal!</p>
         <hr>
+        <p>O nome é: {{nome}}</p>
         <button @click="alterarNome">Alterar nome</button>
         <div class="componentes">
-            <app-usuario-info :nome="nome" />
+            <app-usuario-info :nome="nome"  @nomeMudou="nome = $event" :reiniciarFn="reiniciarNome"/>
             <app-usuario-editar />
         </div>
     </div>
@@ -26,6 +27,9 @@ export default {
     methods:{
         alterarNome(){
             this.nome = 'Ana'
+        },
+        reiniciarNome(){
+            this.nome = 'Pedro'
         }
     }
 }
