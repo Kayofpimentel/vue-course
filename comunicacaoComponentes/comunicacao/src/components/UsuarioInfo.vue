@@ -1,23 +1,30 @@
 <template>
     <div class="componente">
         <h2>As Informações de Usuário</h2>
-        <span>Nome do usuário: <strong>{{nome.split('').reverse().join('')}}</strong> </span>
-        <hr>
-        <button @click="voltarNome">Voltar Nome</button>
-        <button @click="reiniciarFn">Reiniciar nome</button>
+        <p>Nome do usuário: <strong>{{nome.split('').reverse().join('')}}</strong> </p>
+        <p>Idade do Usuário: {{idade}}</p>
     </div>
 </template>
 
 <script>
+
+import barrameto from '../barramento'
+
 export default {
     props: {
         nome: {type: String, /*required: true ,*/ default: 'João'},
-        reiniciarFn: Function
+        
+    },
+    data(){
+        return{
+            idade: Number
+        }
     },
     methods:{
-        voltarNome(){
-            this.$emit('nomeMudou', 'Pedro')
-        }
+    },
+    created(){
+        barrameto.mudancaIdade(idade =>
+        this.idade = idade)
     }
 }
 </script>
