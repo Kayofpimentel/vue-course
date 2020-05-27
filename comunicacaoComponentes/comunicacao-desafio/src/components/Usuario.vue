@@ -22,14 +22,27 @@ export default {
     }
   },
   methods: {
+    checarDados(info){
+      const vm = this
+      vm.info = {
+        id: info[0],
+        pessoa: {
+          nome: info[1].nome, idade: info[1].idade
+        }
+      }
+      console.log(vm.info)
+    },
     limparDados(){
       const vm = this
+      console.log(vm.info.pessoa.idade)
+      vm.info.pessoa.idade += 20
+      console.log(vm.info.pessoa.idade)
       vm.info = null
     }
   },
   created(){
     const vm = this
-    barramento.mostrarInfo(info => vm.info = info)
+    barramento.mostrarInfo(info => vm.checarDados(info))
   }
 }
 </script>
