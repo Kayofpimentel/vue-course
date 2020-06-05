@@ -13,11 +13,11 @@
         </div>
       </div>
       <div class="col col-6">
-        <div class="pomo-timer"><p>25:00</p></div>
+        <div class="pomo-timer"><p>{{minutes+':'+seconds}}</p></div>
         <div class="pomo-control">
-          <button class="btn-primary btn-lg button">Iniciar</button>
-          <button class="btn-primary btn-lg button">Parar</button>
-          <button class="btn-primary btn-lg button">Resetar</button>
+          <button class="btn-primary btn-lg button" @click="startTimer">Iniciar</button>
+          <button class="btn-primary btn-lg button" @click="stopTimer">Parar</button>
+          <button class="btn-primary btn-lg button" @click="resetTimer">Resetar</button>
         </div>
       </div>
       <div class="col col-3">
@@ -38,7 +38,54 @@
 <script>
 export default {
   name: "Pomodoro",
-  props: {}
+  props: {},
+  data() {
+    return{
+      time: 1500000,
+      timer: false
+    }
+  },
+  methods:{
+    startTimer(){
+      const vm = this
+      if(!vm.timer){
+        vm.timer = setInterval(function(){
+          vm.time -= 1000
+          }, 1000)
+      }
+    },
+      stopTimer(){
+        const vm = this
+        clearInterval(vm.timer)
+        vm.timer = false
+      },
+      resetTimer(){
+        const vm = this
+        vm.stopTimer()
+        vm.time = 1500000
+      }
+    
+  },
+  computed:{
+    minutes(){
+      const vm = this
+      let minute = Math.trunc(vm.time/60000)
+      return minute <= 10 ? '0'+minute : minute
+    },
+    seconds(){
+      const vm = this
+      let second = (vm.time - (vm.minutes * 60000))/1000
+      return second <= 10 ? '0'+second : second
+    }
+  },
+  watch:{
+    time: function(){
+      const vm = this
+      if(vm.time === 0){
+        vm.stopTimer()
+      }
+    }
+  }
 };
 </script>
 
@@ -70,9 +117,13 @@ export default {
     justify-content: space-evenly;
 
     button{
-      height: 60%;
-      margin: auto;
-      padding: 1vh 1vw ;
+      min-width: 7vw;
+      margin: 1vh 2vw;
+      background-color: var(--secondary);
+      border-color: var(--primary);
+      color: #2c3e50;
+      font-size: 1.4rem;
+      font-weight: 500;
     }
   }
 }
