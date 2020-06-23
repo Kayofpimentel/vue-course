@@ -1,8 +1,8 @@
 <template>
   <div class="lista-tarefas-style" >
-    <span v-for="(tarefa, index) in lista" :class="{'badge-danger':!tarefa.status, 'badge-success':tarefa.status}" :key="index" class="badge caixa-tarefa" @click="finalizarTarefa(tarefa)">
-      <p >{{tarefa.descricao}}</p>
-      <button @click.stop="retirarTarefa(index)" type="button" class="close acao-finalizar" aria-label="Close">
+    <span v-for="(status, chave) in tarefas" :class="{'badge-danger':!status, 'badge-success':status}" :key="chave" class="badge caixa-tarefa" @click="finalizarTarefa(chave)">
+      <p >{{chave}}</p>
+      <button @click.stop="retirarTarefa(chave)" type="button" class="close acao-finalizar" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </span>
@@ -17,41 +17,39 @@ export default {
   name: "ListaTarefas",
   data() {
     return {
-      lista: [{ descricao: "Teste Teste", status: 1 },{ descricao: "Tesate", status: 0 },{ descricao: "b", status: 0 },{ descricao: "c", status: 0 },{ descricao: "Teste Teste Teste", status: 0 },{ descricao: "Teste", status: 0 },{ descricao: "d", status: 0 },{ descricao: "e", status: 0 },{ descricao: "Teste Teste Teste Teste TesteTeste Teste Teste Teste", status: 0 },{ descricao: "Teste Teste Teste Teste", status: 0 }]
+      tarefas: {'Primeira tarefa': false} 
     }
   },
   methods:{
-    finalizarTarefa(tarefa){
+    finalizarTarefa(chave){
       const vm = this
-      tarefa.status = !tarefa.status
+      vm.tarefas[chave] = !vm.tarefas[chave]
       vm.$nextTick(Barramento.atualizarProgresso(vm.calcularCompletas))
     },
-    retirarTarefa(index){
+    retirarTarefa(chave){
       const vm = this
-      vm.lista.splice(index,1)  
+      vm.$delete(vm.tarefas, chave)
     },
     adicionarTarefa(novaTarefa){
       const vm = this
-      vm.lista.push({descricao: novaTarefa, status: 0})
-      console.log(novaTarefa)
-      console.log(vm.lista)
+      vm.$set(vm.tarefas,novaTarefa,false)
     },
   },
   computed:{
     calcularCompletas(){
       const vm = this
-      let totalTarefas = 0
+      let totalTarefas = Object.entries(vm.tarefas).length
       let totalFeito = 0
-      if(vm.lista.length >= 1){
-        totalTarefas = vm.lista.length
+      if(totalTarefas >= 1){
         const feitas = (statusTarefa, total) => statusTarefa + total
-        totalFeito = vm.lista.map(tarefa => tarefa.status).reduce(feitas)
+        const listaTarefas = Object.entries(vm.tarefas)
+        totalFeito = listaTarefas.map(tarefa => tarefa[1] ? 1 : 0).reduce(feitas)
       }
       return {completas: totalFeito, total: totalTarefas}
     }
   },
   watch:{
-    lista(){
+    tarefas(){
       const vm = this
       Barramento.atualizarProgresso(vm.calcularCompletas)
     }
