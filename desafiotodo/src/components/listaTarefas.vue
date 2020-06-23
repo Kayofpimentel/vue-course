@@ -76,7 +76,7 @@ export default {
     line-height: 4.5vh;
   }
 
-  .badge-succ ess{
+  .badge-success{
     text-decoration: line-through;
   }
 
