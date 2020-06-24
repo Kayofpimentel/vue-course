@@ -17,14 +17,13 @@ export default {
   name: "ListaTarefas",
   data() {
     return {
-      tarefas: {'Primeira tarefa': false} 
+      tarefas: {}
     }
   },
   methods:{
     finalizarTarefa(chave){
       const vm = this
       vm.tarefas[chave] = !vm.tarefas[chave]
-      vm.$nextTick(Barramento.atualizarProgresso(vm.calcularCompletas))
     },
     retirarTarefa(chave){
       const vm = this
@@ -49,15 +48,20 @@ export default {
     }
   },
   watch:{
-    tarefas(){
-      const vm = this
-      Barramento.atualizarProgresso(vm.calcularCompletas)
+    tarefas:{
+      deep: true,
+      handler(){
+        const vm = this
+        Barramento.atualizarProgresso(vm.calcularCompletas)
+        localStorage.setItem('tarefas', JSON.stringify(vm.tarefas))
+      }
     }
   },
 
   created(){
     const vm = this
-    Barramento.atualizarProgresso(vm.calcularCompletas)
+    const localTarefas = localStorage.getItem('tarefas') 
+    vm.tarefas = JSON.parse(localTarefas) || {'Primeira tarefa': false} 
     Barramento.$on('adicionarTarefa', novaTarefa => vm.adicionarTarefa(novaTarefa))
   }
 };
@@ -74,6 +78,9 @@ export default {
     white-space: break-spaces;
     max-height: 10vh;
     line-height: 4.5vh;
+    user-select: none;
+    box-sizing: border-box;
+    position: relative;
   }
 
   .badge-success{
@@ -81,33 +88,37 @@ export default {
   }
 
   .caixa-tarefa{
-    padding: 1.2rem .5rem .8rem .8rem;
     margin: 0 0 1vh 0;
     cursor: pointer;
-  }
 
-  .caixa-tarefa p{
+    p{
     display: inline;
-    margin: auto;
-  }
+    margin: auto .5vw auto auto;
+    }
 
-  .close{
+    .acao-finalizar{
     z-index: 2;
     opacity: .7;
     color: white;
-    
+    position: absolute;
+    top: .3rem;
+    right: .4rem;
   }
   .acao-finalizar span{
     background-color: black;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    display: inline-block;
-    line-height: 1.5rem;
-    bottom: 1.2vh;
-    position: relative;
-    font-size: 1.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: .7rem;
+    display: flex;
+    justify-content: center;
+    
   }
+
+  }
+
+  
+
+  
   
 
 }
