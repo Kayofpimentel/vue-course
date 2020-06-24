@@ -30,12 +30,11 @@
                 <h2>{{subTitulo2}}</h2>
                 <div>
                     <ul>
-                        <li v-for="(cor, i) in cores" :class='"
-                        estilo-"+cor'>{{ cor }} : {{i + 1}}</li>
+                        <li v-for="(cor, i) in cores" :class="'estilo-'+cor">{{ cor }} : {{i + 1}}</li>
                     </ul>
                 </div>
                 <template v-for="(cor, i) in cores">
-                    <h3 :class='"estilo-"+cor'>{{ cor }}</h3>
+                    <h3 :class="'estilo-'+cor">{{ cor }}</h3>
                     <p> {{ i + 1}} </p>
                 </template>
             </section>

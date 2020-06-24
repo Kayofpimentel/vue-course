@@ -19,7 +19,6 @@ const v = new Vue({
     
   },
   watch: {
-    
   },
   methods: {
   }

@@ -1,0 +1,15 @@
+:root{
+    font-size: 10px;
+    --primary: lightgrey !important;
+    --secondary: darkgrey !important;
+    
+}
+
+body{
+    min-height: 100vh;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    background: rgb(102,102,102);
+    background: linear-gradient(125deg, rgba(102,102,102,0.85) 0%, rgba(125,153,150,1) 30%, rgba(187,187,187,0.25) 100%);
+
+}
