@@ -3,7 +3,7 @@
         <label>{{ nome }}:</label>
         <div class="elemento">
             <slot></slot>
-        </div>
+            </div>
     </div>
 </template>
 
