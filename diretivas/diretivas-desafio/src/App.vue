@@ -2,6 +2,21 @@
 	<div id="app">
 		<h1>Diretivas (Desafio)</h1>
 		<hr>
+		<p ref="paraCorrigir"> Texto para corrigir.</p>
+		<p ref="paraSumir"> Texto para sumir.</p>
+		<p ref="paraDestacar"> Texto para destacar. </p>
+		<span>
+			<button v-mudar:click.corrigir="funcaoMudar"
+			>Corretor</button>	
+		</span>
+		<span>
+			<button v-mudar:click.sumir="funcaoMudar">Mr. M</button>
+		</span>
+		<span>
+			<button v-mudar:click.destacar="funcaoMudar">Marca texto</button>
+		</span>
+		
+		
 		<!-- Exercício -->
 		<!-- Escreva uma diretiva que funcione com o v-on (escute eventos) -->
 	</div>
@@ -9,7 +24,29 @@
 
 <script>
 export default {
-	
+	data(){
+		return{
+			
+		}
+	},
+	directives:{
+		mudar(el, binding, vnode){
+			let referencia = {}
+			if(binding.modifiers['corrigir']) referencia = {tipo: 'paraCorrigir',estilo: 'textDecoration',valor: 'line-through'}
+			if(binding.modifiers['sumir']) referencia = {tipo: 'paraSumir',estilo: 'visibility',valor: 'hidden'}
+			if(binding.modifiers['destacar']) referencia = {tipo: 'paraDestacar',estilo: 'color',valor: 'red'}
+			if(Object.keys(referencia).length > 0){
+				const elemento = vnode.context.$refs[referencia.tipo]
+				el.addEventListener(binding.arg,  function(){
+					binding.value(elemento, referencia)} ,false)
+			}
+		},
+	},
+	methods: {
+		funcaoMudar(elemento,referencia){
+			elemento.style[referencia.estilo]=referencia.valor
+		}
+	}
 }
 </script>
 
