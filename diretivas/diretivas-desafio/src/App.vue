@@ -2,9 +2,21 @@
 	<div id="app">
 		<h1>Diretivas (Desafio)</h1>
 		<hr>
-		<p ref="paraCorrigir"> Texto para corrigir.</p>
-		<p ref="paraSumir"> Texto para sumir.</p>
-		<p ref="paraDestacar"> Texto para destacar. </p>
+		<div>
+			<span ref="paraCorrigir">
+				Texto para corrigir.
+			</span>
+		</div>
+		<div>
+			<span v-mudar:mouseover.sumir="funcaoMudar" ref="paraSumir">
+				Texto para sumir.
+			</span>
+		</div>
+		<div>
+			<span ref="paraDestacar">
+				Texto para destacar.
+			</span>
+		</div>
 		<span>
 			<button v-mudar:click.corrigir="funcaoMudar"
 			>Corretor</button>	
@@ -37,6 +49,7 @@ export default {
 			if(binding.modifiers['destacar']) referencia = {tipo: 'paraDestacar',estilo: 'color',valor: 'red'}
 			if(Object.keys(referencia).length > 0){
 				const elemento = vnode.context.$refs[referencia.tipo]
+				console.log(binding.arg)
 				el.addEventListener(binding.arg,  function(){
 					binding.value(elemento, referencia)} ,false)
 			}
@@ -44,7 +57,7 @@ export default {
 	},
 	methods: {
 		funcaoMudar(elemento,referencia){
-			elemento.style[referencia.estilo]=referencia.valor
+			elemento.style[referencia.estilo]=referencia.valor	
 		}
 	}
 }
@@ -68,5 +81,9 @@ button {
 	border-radius: 5px;
 	color: #FFF;
 	background-color: #2196F3;
+}
+
+div{
+	margin: 5vh auto;
 }
 </style>
