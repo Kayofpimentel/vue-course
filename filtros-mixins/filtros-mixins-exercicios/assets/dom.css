@@ -60,6 +60,7 @@ label{
 
 ul{
     margin: .3vh .8vw .3vh .8vw;
+    list-style-position: inside;
 }
 
 #app{
@@ -96,6 +97,11 @@ section.half-page{
 
 section.half-page h2{
     text-transform: capitalize;
+}
+
+section.half-page div, section.half-page ul{
+    margin: auto;
+    text-align: center;
 }
 
 .demo{
