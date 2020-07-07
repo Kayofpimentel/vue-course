@@ -91,6 +91,8 @@ section.half-page{
     border: .1rem solid black;
     border-style: solid;
     border-color: black;
+    overflow: hidden;
+    overflow-wrap: break-word;
 }
 
 section.half-page h2{

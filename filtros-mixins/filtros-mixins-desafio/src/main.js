@@ -8,9 +8,9 @@ Vue.filter('textoContado',function(texto){
 	for(let indexPalavra in textoSeparado){
 		let palavra = textoSeparado[indexPalavra]
 		let quantidadeLetras = palavra.split('').length
-		textoSeparado[indexPalavra] = palavra + ' ('+quantidadeLetras+') '
+		textoSeparado[indexPalavra] =  `${palavra} (${quantidadeLetras})`
 	}
-	return textoSeparado.join('')
+	return textoSeparado.join(' ')
 })
 
 new Vue({

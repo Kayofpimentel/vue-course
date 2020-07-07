@@ -7,7 +7,7 @@
 				<h2>{{tituloEx1}}</h2>
 				<hr>
 				<p>Sem filtro de espaço por vírgula</p>
-				<p>{{"Com filtro de espaço por vírgula" | espacoPorVirgula}}</p>
+				<p>{{"Com filtro de espaço por vírgula" | espaco-por-virgula}}</p>
 			</section>
 			<section class="half-page">
 				<h2>{{tituloEx2}}</h2>
