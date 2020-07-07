@@ -2,20 +2,29 @@
 	<div id="app">
 		<h1>Filtros & Mixins</h1>
 		<hr>
-		<p>{{cpf | formatarCPF | inverter}}</p>
-		<input type="text" :value="cpf | formatarCPF | inverter">
-		<hr>
-		<span>
-			<Frutas></Frutas>
-		</span>
-		<span>
-			<ul>
-				<li v-for="fruta in frutas" :key="fruta">{{fruta}}</li>
-			</ul>
-			<div>
-				<input type="text" v-model="fruta" @keydown.enter="add">
-			</div>
-		</span>
+		<div id="code-boxes">
+			<section class="half-page">
+				<h2>filtros</h2>
+				<hr>
+				<div>
+					<p>{{cpf | formatarCPF | inverter}}</p>
+					<input type="text" :value="cpf | formatarCPF | inverter">
+				</div>
+			</section>
+			<section class="half-page">
+				<h2>mixin local</h2>
+				<ul>
+					<li v-for="fruta in frutas" :key="fruta">{{fruta}}</li>
+				</ul>
+				<div>
+					<input type="text" v-model="fruta" @keydown.enter="add">
+				</div>
+			</section>
+			<section class="half-page">
+				<h2>mixin no componente</h2>
+				<Frutas></Frutas>
+			</section>
+		</div>
 	</div>
 </template>
 
@@ -49,19 +58,15 @@ export default {
 </script>
 
 <style>
+
+@import url("./../assets/dom.css");
+
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 60px;
 	font-size: 1.5rem;
 }
-
-span{
-	width: 20vw;
-	display: inline-block;
-}
-
 </style>
