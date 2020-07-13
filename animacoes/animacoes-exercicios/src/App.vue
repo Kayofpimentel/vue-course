@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Transições e Animações" />
+    <Exercicios msg="Transições e Animações" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Exercicios from "./components/Exercicios.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
-  }
+    Exercicios
+  } 
 };
 </script>
 
