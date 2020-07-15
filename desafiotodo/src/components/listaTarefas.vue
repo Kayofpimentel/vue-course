@@ -103,7 +103,7 @@ export default {
     position: absolute;
     top: .3rem;
     right: .4rem;
-  }
+    }
   .acao-finalizar span{
     background-color: black;
     width: 1.4rem;
@@ -112,14 +112,7 @@ export default {
     display: flex;
     justify-content: center;
     
+    }
   }
-
-  }
-
-  
-
-  
-  
-
 }
 </style>
