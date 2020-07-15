@@ -3,7 +3,7 @@
     <div class="lessons">
       <h1>Time to Quiz!</h1>
       <hr>
-      <Quiz :pergunta="perguntas[perguntaAtual]"></Quiz>
+      <Quiz @novaPergunta="proximaPergunta()" :infoPergunta="perguntas[perguntaAtual]"></Quiz>
     </div>  
   </div>
 </template>
@@ -21,17 +21,28 @@ export default {
   data(){
     return{
       perguntas: [
-        {pergunta: "Quanto é 1 + 1", respostas: ["1", "2", "3", "4"], resposta:1},
-        {pergunta: "Qual o nome do desafio", respostas: ["Vue", "Teste", "Quiz", "Não sei"], resposta:2},
-        {pergunta: "Quanto é 11 + 11", respostas: ["5", "22", "6", "9"], resposta:1},
-        {pergunta: "Quantos ovos têm em meia dúzia de caixa de ovos?", respostas: ["72", "6", "24", "12"], resposta:0},
+        {pergunta: "Quanto é 1 + 1", respostas: ["1", "2", "3", "4"], respostaCerta:1},
+        {pergunta: "Qual o nome do desafio", respostas: ["Vue", "Teste", "Quiz", "Não sei"], respostaCerta:2},
+        {pergunta: "Quanto é 11 + 11", respostas: ["5", "22", "6", "9"], respostaCerta:2},
+        {pergunta: "Quantos ovos têm em meia dúzia de caixa de ovos?", respostas: ["72", "6", "24", "12"], respostaCerta:0},
       ],
+      perguntaAtual: 0
+    }
+  },
+  methods:{
+    proximaPergunta(){
+      let perguntaDiferente = true
+      let novaPergunta = 0
+      while(perguntaDiferente){
+        novaPergunta = Math.floor(Math.random() * this.perguntas.length)
+        if(novaPergunta !== this.perguntaAtual){
+          perguntaDiferente = false
+        }
+      }
+      this.perguntaAtual = novaPergunta
     }
   },
   computed:{
-    perguntaAtual(){
-      return 0
-    }
   }
     
 };
