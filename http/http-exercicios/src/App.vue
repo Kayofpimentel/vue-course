@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HelloWorld :msg="msg " />
   </div>
 </template>
 
@@ -12,23 +12,31 @@ export default {
   components: {
     HelloWorld
   },
-  created(){
-    // console.log("exec")
-    // this.$http.post("usuarios.json",{
-    //   nome: "Maria",
-    //   email: "maria_testehttp@gmail.com"
-    // }).then(res => console.log(res))
+  data(){
+    return{
+      msg: "CRUD com Axios"
+    }
   }
 };
 </script>
 
 <style lang="scss">
+@import url("./../../../estilo/dom.css");
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
+
+  legend{
+  text-align: left;
+  }
+
+  div.bv-no-focus-ring{
+      padding-left: 0;  
+  }
+  
 }
 </style>
