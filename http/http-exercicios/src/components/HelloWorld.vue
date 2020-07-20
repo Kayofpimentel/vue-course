@@ -18,6 +18,11 @@
           <b-button @click="obterUsuarios" style="background-color:olive">
             Recarregar
           </b-button>
+          <div>
+            <b-alert show dismissible v-for="(mensagem, id) in mensagens" :key="id" :variant="mensagem.tipo">
+              {{mensagem.texto}}
+            </b-alert>
+          </div>
       </section>
 
       <section class="half-page container">
@@ -54,9 +59,10 @@ export default {
       usuario: {
         nome: '',
         email: '',
-        id: '' 
+        id: ''
       },
       usuarios: [],
+      mensagens: [],
       criando: true
     };
   },
@@ -69,10 +75,10 @@ export default {
       newRequest.method(newRequest.item,{nome: vm.usuario.nome, email: vm.usuario.email}).then(
         () => {
           vm.criando = true
-          vm.limpar()
           vm.obterUsuarios()
+          vm.gerarMensagem()
         }
-      )
+      ).then(vm.limpar())
     },
     obterUsuarios(){
       const vm = this
@@ -93,20 +99,40 @@ export default {
       vm.$http.delete(`/usuarios/${usuarioId}.json`).then(
         () => {
           vm.obterUsuarios()
+          vm.gerarMensagem()
         }
-      )
+      ).catch(() => {
+        vm.gerarMensagem('danger')
+      }).then(vm.limpar())
+      
     },
     limpar(){
       const vm = this
       vm.usuario.nome = ''
       vm.usuario.email = ''
       vm.usuario.id = ''
+      vm.mensagens = []  
+    },
+    gerarMensagem(tipoNovaMensagem = 'success'){
+      const vm = this
+      if(tipoNovaMensagem !== 'success'){
+        vm.mensagens.push({
+          texto: 'A operação falhou!',
+          tipo: tipoNovaMensagem
+        })
+      }
+      else{
+          vm.mensagens.push({
+          texto: 'Operação realizada com sucesso!',
+          tipo: tipoNovaMensagem
+        })
+      }
     }
   }
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 
 #code-boxes{
   h3 {
