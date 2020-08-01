@@ -1,18 +1,15 @@
 <template>
     <div id="ex-rotas">
-        <h2>Componente com rota</h2>
+        <h2>Início</h2>
         <hr>
-        <b-button variant="success" to="/usuario">Ir para usuário</b-button>
+        <b-button sucesso to='/usuario'>Usuários</b-button>
+        <hr>
     </div>
 </template>
 
 <script>
 export default {
     props:{
-        msg: {
-            type: String,
-            required: true
-        }
     }
 }
 </script>

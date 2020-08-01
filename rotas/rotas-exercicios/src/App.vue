@@ -5,10 +5,21 @@
     <Menu></Menu>
     <div id="code-boxes">
         <section class="half-page">
-            <router-view :msg="msg" />
+          <transition enter-active-class="animate__animated animate__jackInTheBox" leave-active-class="animate_animated animate__hinge" mode="out-in">
+            <router-view/>
+          </transition>
+        </section>
+        <section class="half-page">
+          <router-view name="nomeado"></router-view>
         </section>
     </div>
-    
+    <footer id="rodape">
+      <h2>Testando #Hash</h2>
+      <b-link style="
+      color:black;font-size:3rem" to="/">
+        ^
+      </b-link>
+    </footer>
   </div>
 </template>
 
@@ -44,5 +55,17 @@ export default {
   nav{
     justify-content: center;
   }
+  [sucesso]{
+            background: chocolate;
+            margin: 0 0 2vh 0;  
+        }
+  
+}
+
+#rodape{
+  margin-top: 200vh;
+  padding-top: 5vh;
+  background: cornflowerblue;
+  color: #000;
 }
 </style>
