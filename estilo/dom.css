@@ -86,12 +86,13 @@ section.half-page{
     width: 40vw;
     min-height: 30vh;
     margin: 1vh 2vw;
-    padding: 0vh 1vw 0vh 1vw;
+    padding: 0vh 1vw;
     border: .1rem solid black;
     border-style: solid;
     border-color: black;
     overflow: hidden;
     overflow-wrap: break-word;
+    box-sizing: border-box;
 }
 
 section.half-page h2{
