@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Rotas from './components/Rotas.vue'
-import Usuario from './components/usuario/Usuario.vue'
-import UsuarioLista from './components/usuario/UsuarioLista.vue'
-import UsuarioEditar from './components/usuario/UsuarioEditar.vue'
-import UsuarioDetalhe from './components/usuario/UsuarioDetalhe.vue'
 import Nomeado from './components/RouterNomeado.vue'
 import Nomeado2 from './components/RouterNomeadoAlt.vue'
+// import Usuario from './components/usuario/Usuario.vue'
+// import UsuarioLista from './components/usuario/UsuarioLista.vue'
+// import UsuarioDetalhe from './components/usuario/UsuarioDetalhe.vue'
+// import UsuarioEditar from './components/usuario/UsuarioEditar.vue'
+
+const Usuario = () => import(/* webpackChunkName: "usuario"  */ './components/usuario/Usuario')
+const UsuarioLista = () => import(/* webpackChunkName: "usuario"  */ './components/usuario/UsuarioLista')
+const UsuarioDetalhe = () => import('./components/usuario/UsuarioDetalhe')
+const UsuarioEditar = () => import('./components/usuario/UsuarioEditar')
 
 Vue.use(Router)
 
