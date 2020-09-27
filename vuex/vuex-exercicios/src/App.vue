@@ -1,14 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <b-link to="/">Home</b-link>
-    </div>
-    <router-view/>
+    <h1>Exercícios Vuex</h1>
+    <hr />
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-
 @import url("./../../../estilo/dom.css");
 
 #app {
@@ -17,18 +15,22 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  h2 {
+    padding: .2rem 0 0 0 !important;
+    margin: auto;
+  }
+  .conteudo div {
+    text-align: center;
+    span,
+    input {
+      width: 40%;
+      display: inline-block;
     }
+  }
+
+  section button {
+    margin-top: 2vh;
   }
 }
 </style>

@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Menu from '../views/Menu.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Menu',
-    component: Menu
+    name: 'Home',
+    component: Home
   }
 ]
 
