@@ -22,7 +22,7 @@ export default {
   computed:{
     focusedComponent(){
       const vm = this
-      return vm.$store.getters.focusedComponent
+      return vm.$store.getters.getComponent
     }
   }
 };

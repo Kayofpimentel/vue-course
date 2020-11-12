@@ -2,9 +2,9 @@
   <div id="app">
     <div class="nav">
       <span class="logo">Stock Trader</span>
-      <button @click="changeComponent('inicio')">Início</button>
-      <button @click="changeComponent('portfolio')">Portfólio</button>
-      <button @click="changeComponent('homeBroker')">Ações</button>
+      <button @click="changeComponent('Inicio')">Início</button>
+      <button @click="changeComponent('Portfolio')">Portfólio</button>
+      <button @click="changeComponent('HomeBroker')">Ações</button>
       <p class="saldo">Saldo: 10000</p>
     </div>
     <router-view />
@@ -13,18 +13,16 @@
 
 <script>
 export default {
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
-  methods:{
-    changeComponent(componentName){
-      const vm = this
-      vm.$store.changeFocus(componentName)
-    }
-  }
-}
+  methods: {
+    changeComponent(componentName) {
+      const vm = this;
+      vm.$store.commit("setComponent", componentName);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -41,9 +39,9 @@ export default {
 
 .nav {
   text-align: left;
-  box-shadow: 0px .2rem .3rem gray;
+  box-shadow: 0px 0.2rem 0.3rem gray;
   background: #E0E0E0;
-  font-size: .9rem;
+  font-size: 0.9rem;
   button {
     text-transform: uppercase;
     padding: 0 1rem;
@@ -51,7 +49,7 @@ export default {
     color: #2c3e50;
     border: none;
   }
-  button:focus{
+  button:focus {
     outline: none;
     background: #C8C8C8;
   }
@@ -59,8 +57,8 @@ export default {
     margin: 0 2rem 0 2rem;
     font-size: 2rem;
   }
-  .saldo{
-    margin: auto 2rem auto auto
+  .saldo {
+    margin: auto 2rem auto auto;
   }
 }
 </style>

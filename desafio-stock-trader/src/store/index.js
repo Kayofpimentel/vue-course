@@ -7,12 +7,12 @@ export default createStore({
     focusedComponent: "Inicio"
   },
   getters: {
-    focusedComponent(state) {
+    getComponent(state) {
       return state.focusedComponent
     }
   },
   mutations: {
-    changeFocus(state, payload) {
+    setComponent(state, payload) {
       state.focusedComponent = payload
     }
   },
