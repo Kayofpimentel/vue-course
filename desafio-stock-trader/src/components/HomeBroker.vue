@@ -1,6 +1,6 @@
 <template>
   <div id="homebroker">
-
+      <p>Acoes</p>
   </div>
 </template>
 
