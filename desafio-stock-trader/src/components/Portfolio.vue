@@ -4,7 +4,7 @@
     <div id="lista-portfolio">
       <div v-for="(acao, posicao) in portfolio" :key="posicao" class="card">
         <h5 class="card-header">
-          {{ acao.acao }}
+          {{ acao.nome }}
           <span
             >( Preço: {{ acao.preco }} | Quantidade:
             {{ acao.quantidade }} )</span
@@ -12,10 +12,16 @@
         </h5>
         <div class="card-body">
           <div class="campo-venda">
-            <label :for="acao.acao">Quantidade: </label>
-            <input :name="acao.acao" type="text" />
+            <label :for="acao.nome">Quantidade: </label>
+            <input v-model="acao.aVender" :name="acao.nome" type="text" />
           </div>
-          <button type="button" class="btn btn-secondary">Vender</button>
+          <button
+            @click="realizarVenda(acao.nome, +acao.aVender)"
+            type="button"
+            class="btn btn-secondary"
+          >
+            Vender
+          </button>
         </div>
       </div>
     </div>
@@ -27,62 +33,37 @@ export default {
   data() {
     return {
       portfolio: [
-        { acao: "Apple", preco: 10, quantidade: 5 },
-        { acao: "Apple", preco: 10, quantidade: 5 },
-        { acao: "Apple", preco: 10, quantidade: 5 },
-        { acao: "Apple", preco: 10, quantidade: 5 },
-        { acao: "Apple", preco: 10, quantidade: 5 },
+        { nome: "Apple", preco: 10, quantidade: 5, aVender: 0 },
+        { nome: "Microsoft", preco: 10, quantidade: 5, aVender: 0 },
+        { nome: "Inter", preco: 10, quantidade: 5, aVender: 0 },
+        { nome: "HP", preco: 10, quantidade: 5, aVender: 0 },
+        { nome: "Magalu", preco: 10, quantidade: 5, aVender: 0 },
       ],
     };
+  },
+  methods: {
+    realizarVenda(nomeAcao = String, quantidadeVenda = Number) {
+      const vm = this;
+      const indexAcao = vm.portfolio.findIndex(
+        (acao) => acao.nome === nomeAcao
+      );
+      console.log(indexAcao)
+      console.log(quantidadeVenda)
+      console.log(vm.portfolio[indexAcao].quantidade)
+      vm.portfolio[indexAcao].quantidade -=
+        vm.portfolio[indexAcao].quantidade >= quantidadeVenda
+          ? quantidadeVenda
+          : 0;
+      vm.portfolio[indexAcao].aVender = 0;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 #lista-portfolio {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  width: 90vw;
-  margin: 5vh auto 0 auto;
-  .card {
-    width: 30%;
-    height: 22vh;
-    margin: 0.5rem;
-    text-align: left;
-    .card-header {
-      background: steelblue;
-      color: white;
-      font-size: 1rem;
-      span {
-        font-size: 0.8 rem;
-      }
-    }
-    .card-body {
-      padding: 0;
-      .campo-venda {
-        display: inline-block;
-        width: 65%;
-        margin: 0.5vw;
-        font-size: 0.8rem;
-        label {
-          margin: 0;
-        }
-        input {
-          border: 0;
-          border-bottom: 1px solid black;
-          width: 100%;
-          height: 5vh;
-          padding: 0;
-        }
-      }
-      button {
-        background: mediumseagreen;
-        font-size: 0.8rem;
-        height: 6vh;
-        width: 25%;
-      }
-    }
+  .card-header {
+    background: steelblue;
   }
 }
 </style>
