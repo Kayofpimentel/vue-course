@@ -5,7 +5,7 @@
       <button @click="changeComponent('Inicio')">Início</button>
       <button @click="changeComponent('Portfolio')">Portfólio</button>
       <button @click="changeComponent('HomeBroker')">Ações</button>
-      <p class="saldo">Saldo: 10000</p>
+      <p class="saldo">{{saldo}}</p>
     </div>
     <router-view />
   </div>
@@ -15,6 +15,12 @@
 export default {
   data() {
     return {};
+  },
+  computed:{
+    saldo(){
+      const vm = this
+      return vm.$store.getters.getSaldo
+    }
   },
   methods: {
     changeComponent(componentName) {
