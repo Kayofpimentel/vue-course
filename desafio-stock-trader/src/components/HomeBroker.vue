@@ -16,7 +16,7 @@
             <input
               :name="acao.nome"
               v-model="$store.state.acoes[index].aOperar"
-              type="text"
+              type="number"
             />
           </div>
           <button

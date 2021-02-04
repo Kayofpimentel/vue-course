@@ -53,7 +53,7 @@ export default createStore({
       state.telaAtual = componente
     },
     setAcao(state, payload) {
-      const  indexAcao = payload.index
+      const indexAcao = payload.index
       const operacao = payload.operacao
       const quantidadePortfolio = state.acoes[indexAcao].quantidadePortfolio
       const quantidadeOperacao = state.acoes[indexAcao].aOperar
@@ -63,10 +63,17 @@ export default createStore({
       state.acoes[indexAcao].aOperar = 0
     },
     setSaldo(state, valorOperacao) {
-      state.saldo = state.saldo + valorOperacao
+      state.saldo = Number(Math.round((state.saldo + valorOperacao) + "e2") + "e-2")
     },
     zerarOperacao(state, indexAcao) {
       state.acoes[indexAcao].aOperar = 0
+    },
+    setPrecoAleatorio(state) {
+      state.acoees = state.acoes.map((acao) => {
+        const variacaoAleatoria = Math.random() * (.1 + .099) - .099
+        const variacao = acao.preco * variacaoAleatoria
+        acao.preco = Number(Math.round((acao.preco + variacao) + "e2") + "e-2")
+      })
     }
   },
   actions: {
@@ -76,7 +83,9 @@ export default createStore({
     }, indexAcao) {
       const valorCompra = getters.getValorTotalOperacao(indexAcao)
       if (getters.getSaldo >= valorCompra) {
-        commit('setAcao', {index:indexAcao})
+        commit('setAcao', {
+          index: indexAcao
+        })
       }
     },
     venderAcao({
@@ -90,5 +99,13 @@ export default createStore({
         })
       }
     },
+    variarAcao({
+      commit
+    }) {
+      const simulacao = () => setInterval(() => {
+        commit('setPrecoAleatorio')
+      }, 2000)
+      simulacao()
+    }
   }
 })

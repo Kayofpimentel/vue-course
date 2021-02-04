@@ -5,7 +5,7 @@
       <button @click="changeComponent('Inicio')">Início</button>
       <button @click="changeComponent('Portfolio')">Portfólio</button>
       <button @click="changeComponent('HomeBroker')">Ações</button>
-      <p class="saldo">{{saldo}}</p>
+      <p class="saldo">{{ saldo }}</p>
     </div>
     <router-view />
   </div>
@@ -16,11 +16,11 @@ export default {
   data() {
     return {};
   },
-  computed:{
-    saldo(){
-      const vm = this
-      return vm.$store.getters.getSaldo
-    }
+  computed: {
+    saldo() {
+      const vm = this;
+      return vm.$store.getters.getSaldo;
+    },
   },
   methods: {
     changeComponent(componentName) {
@@ -46,7 +46,7 @@ export default {
 .nav {
   text-align: left;
   box-shadow: 0px 0.2rem 0.3rem gray;
-  background: #E0E0E0;
+  background: #e0e0e0;
   font-size: 0.9rem;
   button {
     text-transform: uppercase;
@@ -57,7 +57,7 @@ export default {
   }
   button:focus {
     outline: none;
-    background: #C8C8C8;
+    background: #c8c8c8;
   }
   .logo {
     margin: 0 2rem 0 2rem;

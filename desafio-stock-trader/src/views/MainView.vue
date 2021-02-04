@@ -16,6 +16,10 @@ export default {
     HomeBroker,
     Portfolio,
   },
+  created() {
+    const vm = this;
+    vm.$store.dispatch("variarAcao");
+  },
   data() {
     return {};
   },
@@ -29,7 +33,8 @@ export default {
 </script>
 
 <style lang="scss">
-#lista-bolsa,#lista-portfolio {
+#lista-bolsa,
+#lista-portfolio {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
