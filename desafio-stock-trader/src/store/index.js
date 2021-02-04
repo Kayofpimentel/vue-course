@@ -5,6 +5,19 @@ import {
 export default createStore({
   state: {
     telaAtual: "Inicio",
+    msgs: [{
+      tipo: "compra",
+      texto: "Você comprou 5 ações de Apple por R$ 0"
+    }, {
+      tipo: "compra",
+      texto: "Você comprou 5 ações de Microsoft por R$ 0"
+    }, {
+      tipo: "compra",
+      texto: "Você comprou 5 ações de Inter por R$ 0"
+    }, {
+      tipo: "compra",
+      texto: "Você comprou 5 ações de Magalu por R$ 0"
+    }],
     acoes: [{
       nome: "Apple",
       preco: 10,
@@ -44,6 +57,9 @@ export default createStore({
     getValorTotalOperacao: (state) => (indexAcao) => {
       return state.acoes[indexAcao].preco * state.acoes[indexAcao].aOperar
     },
+    getMsgs(state) {
+      return state.msgs
+    },
     getSaldo(state) {
       return state.saldo
     }
@@ -57,9 +73,29 @@ export default createStore({
       const operacao = payload.operacao
       const quantidadePortfolio = state.acoes[indexAcao].quantidadePortfolio
       const quantidadeOperacao = state.acoes[indexAcao].aOperar
-      state.acoes[indexAcao].quantidadePortfolio = operacao === 'venda' ? quantidadePortfolio + -quantidadeOperacao : quantidadePortfolio + +quantidadeOperacao
       const precoAcao = state.acoes[indexAcao].preco
-      state.saldo = operacao === 'venda' ? state.saldo + (precoAcao * quantidadeOperacao) : state.saldo - (precoAcao * quantidadeOperacao)
+      const operar = (mensagem, novoPortfolio, novoSaldo) => {
+        state.msgs.push(mensagem)
+        state.acoes[indexAcao].quantidadePortfolio = novoPortfolio
+        state.saldo = novoSaldo
+      }
+      if (operacao === 'venda') {
+        const mensagem = {
+          tipo: 'venda',
+          texto: `Você vendeu ${quantidadeOperacao} ações de ${state.acoes[indexAcao].nome} por R$ ${precoAcao}`
+        }
+        const novoPortfolio = quantidadePortfolio + -quantidadeOperacao
+        const novoSaldo = state.saldo + (precoAcao * quantidadeOperacao)
+        operar(mensagem, novoPortfolio, novoSaldo)
+      } else {
+        const mensagem = {
+          tipo: 'compra',
+          texto: `Você comprou ${quantidadeOperacao} ações de ${state.acoes[indexAcao].nome} por R$ ${precoAcao}`
+        }
+        const novoPortfolio = quantidadePortfolio + +quantidadeOperacao
+        const novoSaldo = state.saldo - (precoAcao * quantidadeOperacao)
+        operar(mensagem, novoPortfolio, novoSaldo)
+      }
       state.acoes[indexAcao].aOperar = 0
     },
     setSaldo(state, valorOperacao) {
@@ -74,7 +110,7 @@ export default createStore({
         const variacao = acao.preco * variacaoAleatoria
         acao.preco = Number(Math.round((acao.preco + variacao) + "e2") + "e-2")
       })
-    }
+    },
   },
   actions: {
     comprarAcao({
@@ -86,6 +122,7 @@ export default createStore({
         commit('setAcao', {
           index: indexAcao
         })
+
       }
     },
     venderAcao({

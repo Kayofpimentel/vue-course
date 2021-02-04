@@ -2,28 +2,30 @@
   <div id="inicio">
     <h1>Negocie e Consulte as suas ações</h1>
     <ul>
-      <li v-for="(texto, posicao) in msgs" :key="posicao">
+      <li v-for="(msg, posicao) in mensagens" :key="posicao">
         <p class="alert alert-primary">
-          <span class="badge badge-pill badge-light">i</span> {{ texto }}
+          <span class="badge badge-pill badge-light">i</span> {{ msg.texto }}
         </p>
       </li>
     </ul>
     <hr />
-    <p class="saldo-inicio"><em>Seu saldo:</em> R$ {{saldo}}</p>
+    <p class="saldo-inicio"><em>Seu saldo:</em> R$ {{ saldo }}</p>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      msgs: ["Oi", "Tchau"],
-    };
+    return {};
   },
   computed: {
-    saldo(){
+    saldo() {
+      const vm = this;
+      return vm.$store.getters.getSaldo;
+    },
+    mensagens(){
       const vm = this
-      return vm.$store.getters.getSaldo
+      return vm.$store.getters.getMsgs;
     }
   },
 };

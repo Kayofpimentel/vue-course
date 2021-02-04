@@ -20,7 +20,7 @@
             />
           </div>
           <button
-            @click="realizarVenda(index)"
+            @click="realizarVenda(index,$store.state.acoes[index].aOperar)"
             type="button"
             class="btn btn-secondary"
           >
@@ -44,9 +44,11 @@ export default {
     },
   },
   methods: {
-    realizarVenda(indexAcao) {
+    realizarVenda(indexAcao,quantidadeAcoes) {
       const vm = this;
-      vm.$store.dispatch("venderAcao", indexAcao);
+      if(quantidadeAcoes !== 0){
+        vm.$store.dispatch("venderAcao", indexAcao);
+      }
     },
   },
 };
