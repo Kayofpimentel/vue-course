@@ -15,12 +15,12 @@
             <label :for="acao.nome">Quantidade: </label>
             <input
               :name="acao.nome"
-              v-model="$store.state.acoes[index].aOperar"
-              type="number"
+              v-model="acao.aOperar"
+              type="text"
             />
           </div>
           <button
-            @click="realizarCompra(index,$store.state.acoes[index].aOperar)"
+            @click="realizarCompra(acao.nome, acao.aOperar)"
             type="button"
             class="btn btn-secondary"
           >
@@ -44,12 +44,12 @@ export default {
     },
   },
   methods: {
-    realizarCompra(indexAcao, quantidadeAcoes) {
+    realizarCompra(nomeAcao, quantidadeAcoes) {
       const vm = this;
-      if(quantidadeAcoes !== 0){
+      if (quantidadeAcoes > 0) {
+        const indexAcao = vm.$store.getters.getIndexAcao(nomeAcao)
         vm.$store.dispatch("comprarAcao", indexAcao);
       }
-      
     },
   },
 };

@@ -1,6 +1,14 @@
 <template>
   <div class="main-view">
-    <component :is="focusedComponent"></component>
+      <transition
+        name="componentes"
+        :enter-active-class="animateIn"
+        :leave-active-class="animateOut"
+        type="animation"
+        mode="out-in"
+      >
+        <component :is="focusedComponent"></component>
+      </transition>
   </div>
 </template>
 
@@ -18,10 +26,16 @@ export default {
   },
   created() {
     const vm = this;
-    vm.$store.dispatch("variarAcao");
+    vm.$store.dispatch("iniciarDados").then(() => {
+      vm.$store.dispatch("variarAcao");
+      vm.$store.dispatch("atualizarResultado");
+    });
   },
   data() {
-    return {};
+    return {
+      animateOut: "animate__animated animate__backOutDown",
+      animateIn: "animate__backInLeft animate__animated",
+    };
   },
   computed: {
     focusedComponent() {
@@ -33,6 +47,10 @@ export default {
 </script>
 
 <style lang="scss">
+.main-view{
+  overflow: hidden;
+}
+
 #lista-bolsa,
 #lista-portfolio {
   display: flex;

@@ -2,8 +2,8 @@
   <div id="inicio">
     <h1>Negocie e Consulte as suas ações</h1>
     <ul>
-      <li v-for="(msg, posicao) in mensagens" :key="posicao">
-        <p class="alert alert-primary">
+      <li v-for="(msg, posicao) in mensagens.slice(-5).reverse()" :key="posicao">
+        <p :class="`alert ${msg.tipo}`">
           <span class="badge badge-pill badge-light">i</span> {{ msg.texto }}
         </p>
       </li>
@@ -23,10 +23,10 @@ export default {
       const vm = this;
       return vm.$store.getters.getSaldo;
     },
-    mensagens(){
-      const vm = this
+    mensagens() {
+      const vm = this;
       return vm.$store.getters.getMsgs;
-    }
+    },
   },
 };
 </script>
@@ -44,9 +44,22 @@ export default {
       .alert {
         padding: 0.1vh 0 0.5vh 0.8vw;
         font-size: 1.2rem;
+        color: #004085;
+        background-color: #cce5ff;
+        border-color: #b8daff;
         .badge {
           font-size: 0.9rem;
         }
+      }
+      .venda {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+      }
+      .compra {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
       }
     }
   }

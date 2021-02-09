@@ -5,7 +5,8 @@
       <button @click="changeComponent('Inicio')">Início</button>
       <button @click="changeComponent('Portfolio')">Portfólio</button>
       <button @click="changeComponent('HomeBroker')">Ações</button>
-      <p class="saldo">{{ saldo }}</p>
+      <p class="resultado">Resultado: {{ resultado }}</p>
+      <p class="saldo">Saldo: {{ saldo }}</p>
     </div>
     <router-view />
   </div>
@@ -13,6 +14,7 @@
 
 <script>
 export default {
+  name: "App",
   data() {
     return {};
   },
@@ -20,6 +22,10 @@ export default {
     saldo() {
       const vm = this;
       return vm.$store.getters.getSaldo;
+    },
+    resultado() {
+      const vm = this;
+      return vm.$store.getters.getResultado;
     },
   },
   methods: {
@@ -64,6 +70,9 @@ export default {
     font-size: 2rem;
   }
   .saldo {
+    margin: auto 2rem auto 0;
+  }
+  .resultado {
     margin: auto 2rem auto auto;
   }
 }
